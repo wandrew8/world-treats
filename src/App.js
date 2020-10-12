@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   HashRouter as Router,
   Switch,
@@ -9,13 +9,16 @@ import Products from './pages/Products';
 import Product from './pages/Product';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Navbar from './components/Navbar';
 import GlobalStyles from './components/GlobalStyles';
 import './App.css';
 
 function App() {
+  const [ showCart, setShowCart ] = useState(false);
   return (
     <Router basename="/world-treats">
-      <GlobalStyles />
+      <GlobalStyles showCart={showCart}/>
+      <Navbar showCart={showCart} setShowCart={setShowCart}/>
       <Switch>
           <Route path="/products/:id">
             <Product />
