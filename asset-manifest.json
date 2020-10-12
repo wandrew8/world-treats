@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/world-treats/static/css/main.5f361e03.chunk.css",
+    "main.js": "/world-treats/static/js/main.9af241d4.chunk.js",
+    "main.js.map": "/world-treats/static/js/main.9af241d4.chunk.js.map",
+    "runtime-main.js": "/world-treats/static/js/runtime-main.13e68a35.js",
+    "runtime-main.js.map": "/world-treats/static/js/runtime-main.13e68a35.js.map",
+    "static/js/2.1a652275.chunk.js": "/world-treats/static/js/2.1a652275.chunk.js",
+    "static/js/2.1a652275.chunk.js.map": "/world-treats/static/js/2.1a652275.chunk.js.map",
+    "index.html": "/world-treats/index.html",
+    "precache-manifest.a1a944ac34aa42ad256a227adea102af.js": "/world-treats/precache-manifest.a1a944ac34aa42ad256a227adea102af.js",
+    "service-worker.js": "/world-treats/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/world-treats/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.1a652275.chunk.js.LICENSE.txt": "/world-treats/static/js/2.1a652275.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.13e68a35.js",
+    "static/js/2.1a652275.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.9af241d4.chunk.js"
+  ]
+}
