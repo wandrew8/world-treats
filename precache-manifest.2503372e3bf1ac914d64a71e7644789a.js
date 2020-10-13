@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4c4c92a10e7416dc00ff2ca98a51edfc",
+    "revision": "032a72259e291892672d0a4fcb8eeb70",
     "url": "/world-treats/index.html"
   },
   {
-    "revision": "6ce099ab8b2f33e04957",
+    "revision": "b5c9ba8aa7c017cc1c83",
     "url": "/world-treats/static/css/main.5f361e03.chunk.css"
   },
   {
-    "revision": "66f56b4f4fa15aa97aaa",
-    "url": "/world-treats/static/js/2.6b1a8e8a.chunk.js"
+    "revision": "bbdcc255b894d93d00fe",
+    "url": "/world-treats/static/js/2.208e3d21.chunk.js"
   },
   {
     "revision": "a3c66bc87fa121efed0250fdac2dfa2b",
-    "url": "/world-treats/static/js/2.6b1a8e8a.chunk.js.LICENSE.txt"
+    "url": "/world-treats/static/js/2.208e3d21.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6ce099ab8b2f33e04957",
-    "url": "/world-treats/static/js/main.3a543e7f.chunk.js"
+    "revision": "b5c9ba8aa7c017cc1c83",
+    "url": "/world-treats/static/js/main.622e5324.chunk.js"
   },
   {
     "revision": "0085cc01b7e124e4c625",
