@@ -1,13 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const Container = styled.div`
     padding: 10px 0px;
+    position: relative;
     hr {
         width: 90%;
     }
+`;
+
+const CloseButton = styled.button`
+    background: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
 `;
 
 const Button = styled.button`
@@ -27,6 +39,8 @@ const Item = styled.div`
     margin: 0 auto;
     h3 {
         margin: 0;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
     }
     img {
         height: 60px;
@@ -46,12 +60,13 @@ const convertUSD = (num) => {
     return dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
 }
 
-const CartItem = ({item}) => {
+const CartItem = ({item, removeItem}) => {
     const { price, name, amountOrdered, image, packaging } = item
     return (
         <Container>
             <Item>
                 <div>
+                    <CloseButton className="cart" onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
                     <img src={image} alt={name} />
                 </div>
                 <div className="item-description">
@@ -59,9 +74,9 @@ const CartItem = ({item}) => {
                     <div className="total">
                         <p>{packaging} {convertUSD(price)}</p>
                         <div className="addItems">
-                            <Button onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
+                            <Button className="button" onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
                             {amountOrdered}
-                            <Button onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+                            <Button className="button" onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
                         </div>
                     </div>
                 </div>

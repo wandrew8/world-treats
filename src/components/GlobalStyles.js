@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
  
 const GlobalStyle = createGlobalStyle` 
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Scope+One&display=swap');
     html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -8,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
     margin: 0;
+    font-family: 'Poppins', sans-serif;
     }
 
     main {

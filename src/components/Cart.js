@@ -17,7 +17,7 @@ const CartContainer = styled.div`
     box-shadow: 0px 0px 5px 10px rgba(0,0,0,0.1);
     background-color: white;
     overflow: hidden;
-    button {
+    .button {
         background: none;
         height: 35px;
         width: 35px;
@@ -43,7 +43,10 @@ const CartContainer = styled.div`
     }
 
     .cart-footer {
-
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: 2rem;
     }
 
     .cartButtons {
@@ -70,6 +73,7 @@ const CartContainer = styled.div`
     .shippingInfo {
         width: 90%;
         margin: 0 auto;
+        text-align: center;
         padding: 10px 0px;
     }
 
@@ -80,16 +84,8 @@ const CartContainer = styled.div`
     }
 `;
 
-const items = [
-    {
-        price: 340,
-        name: "Garlic Potato Chips",
-        amountOrdered: 2,
-        packaging: "One bag",
-        image: "https://www.universalyums.com/wp-content/uploads/2020/07/Devil-Chili-Potato-Chips-1536x1536.jpg"
-    }
-]
-const Cart = ({ showCart, setShowCart }) => {
+
+const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) => {
     const ref = useRef();
     const transitions = useTransition(showCart, null, {
         from: { opacity: 0, width: "0%" },
@@ -114,13 +110,13 @@ const Cart = ({ showCart, setShowCart }) => {
             return item && <animated.div key={key} style={props} className="cart" ref={ref}><CartContainer className="cart">
                 <div className="cart-heading">
                     <h2>Your Cart</h2>
-                    <button><FontAwesomeIcon onClick={() => setShowCart(false)} icon={faChevronRight} /></button>
+                    <button className="button"><FontAwesomeIcon onClick={() => setShowCart(false)} icon={faChevronRight} /></button>
                 </div>
                 <hr/>
                 <div className="items-container cart">
-                    {items.map(item => {
+                    {cartItems.map(item => {
                         return (
-                            <CartItem item={item} />
+                            <CartItem item={item} removeItem={removeItem}/>
                         )
                     })}
                 </div>

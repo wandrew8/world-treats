@@ -23,7 +23,7 @@ const Navigation = styled.nav`
     }
 `;
 
-const Navbar = ({ showCart, setShowCart }) => {
+const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) => {
     return (
         <React.Fragment>
             <Navigation>
@@ -35,7 +35,7 @@ const Navbar = ({ showCart, setShowCart }) => {
                     <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
                 </div>
             </Navigation>
-            <Cart showCart={showCart} setShowCart={setShowCart} />
+            <Cart showCart={showCart} setShowCart={setShowCart} cartItems={cartItems} setCartItems={setCartItems} removeItem={removeItem}/>
         </React.Fragment>
     )
 }
