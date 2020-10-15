@@ -61,18 +61,18 @@ const convertUSD = (num) => {
 }
 
 const CartItem = ({item, removeItem}) => {
-    const { price, name, amountOrdered, image, packaging } = item
+    const { price, name, amountOrdered, mainImage, packageDescription } = item
     return (
         <Container>
             <Item>
                 <div>
                     <CloseButton className="cart" onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
-                    <img src={image} alt={name} />
+                    <img src={mainImage} alt={name} />
                 </div>
                 <div className="item-description">
                     <h3>{name}</h3>
                     <div className="total">
-                        <p>{packaging} {convertUSD(price)}</p>
+                        <p>{packageDescription} {convertUSD(price)}</p>
                         <div className="addItems">
                             <Button className="button" onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
                             {amountOrdered}

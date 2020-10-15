@@ -82,6 +82,10 @@ const CartContainer = styled.div`
         font-size: 1.5rem;
         margin-right: 10px;
     }
+    .message {
+        text-align: center;
+        margin-top: 2rem;
+    }
 `;
 
 
@@ -114,14 +118,14 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                 </div>
                 <hr/>
                 <div className="items-container cart">
-                    {cartItems.map(item => {
+                    {cartItems.length > 0 ? cartItems.map(item => {
                         return (
                             <CartItem item={item} removeItem={removeItem}/>
                         )
-                    })}
+                    }) : <div className="message">You have no items in your cart</div>}
                 </div>
-                <hr/>
                 <div className="cart-footer cart">
+                <hr/>
                     <div className="subtotal"><p>Subtotal:</p><p>$0.00</p></div>
                     <div className="shippingInfo">
                         <FontAwesomeIcon className="info" icon={faExclamationCircle}></FontAwesomeIcon>

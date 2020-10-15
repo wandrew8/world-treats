@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   HashRouter as Router,
   Switch,
@@ -13,47 +13,51 @@ import Navbar from './components/Navbar';
 import GlobalStyles from './components/GlobalStyles';
 import './App.css';
 
-function App() {
-  const items = [
-    {
-        price: 340,
-        name: "Garlic Potato Chips",
-        amountOrdered: 2,
-        packaging: "One bag",
-        image: "https://www.universalyums.com/wp-content/uploads/2020/07/Devil-Chili-Potato-Chips-1536x1536.jpg"
-    },
-    {
-        price: 340,
-        name: "Mustard Potato Chips",
-        amountOrdered: 2,
-        packaging: "One bag",
-        image: "https://www.universalyums.com/wp-content/uploads/2020/07/Devil-Chili-Potato-Chips-1536x1536.jpg"
-    }
-]
+export default function App() {
   const [ showCart, setShowCart ] = useState(false);
-  const [ cartItems, setCartItems ] = useState(items);
+  const [ cartItems, setCartItems ] = useLocalStorage([]);
+  const [ products, setProducts ] = useState([]);
   const incrementItem = (item) => {
      
   }
+
   const decrementItem = (item) => {
 
   }
+
   const removeItem = (el) => {
     const filtered = cartItems.filter(item => {
       return item.name !== el;
     })
     setCartItems(filtered);
   }
+
+  const addToCart = item => {
+    setCartItems([...item])
+  }
+
+  useEffect(() => {
+    const proxy = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://world-treats-api.herokuapp.com/products"
+    fetch(proxy + url)
+    .then(res => res.json())
+    .then(response => {
+      console.log(response)
+      setProducts(response)
+    })
+    .catch(err => console.log(err))
+  }, [setProducts]);
+
   return (
     <Router basename="/world-treats">
       <GlobalStyles showCart={showCart}/>
       <Navbar cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} removeItem={removeItem}/>
       <Switch>
           <Route path="/products/:id">
-            <Product />
+            <Product products={products} addToCart={addToCart}/>
           </Route>
           <Route path="/products">
-            <Products />
+            <Products products={products}/>
           </Route>
           <Route path="/login">
             <Login />
@@ -69,4 +73,28 @@ function App() {
   );
 }
 
-export default App;
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = value => {
+    try {
+      const valueToStore =
+      value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+

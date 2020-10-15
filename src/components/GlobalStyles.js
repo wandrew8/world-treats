@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
  
 const GlobalStyle = createGlobalStyle` 
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Scope+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Asap:wght@700&family=Roboto&display=swap');
     html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
     }
 
     main {
@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2em;
     margin: 0.67em 0;
     color: blue;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fredoka One', cursive;
     }
 
     hr {
