@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Cart from './Cart';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,7 +23,11 @@ const Navigation = styled.nav`
     }
 `;
 
-const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) => {
+const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, userName, userImage }) => {
+    const [ showModal, setShowModal ] = useState(false);
+
+
+
     return (
         <React.Fragment>
             <Navigation>
@@ -31,7 +35,8 @@ const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) 
                     <Link to="/">World Treats</Link>
                 </div>
                 <div>
-                    <Link to="/login">Login</Link>
+                    { userName ? userName : ''}
+                    <button onClick={() => setShowModal(true)}>{userName ? "Logout" : "Login"}</button>
                     <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
                 </div>
             </Navigation>

@@ -7,7 +7,7 @@ export default class Home extends React.Component {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
         // Redirects once sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        signInSuccessUrl: '/world-treats#/',
+        signInSuccessUrl: '/world-treats#/world-treats',
         // Displays Email, Google and Github as auth providers.
         signInOptions: [
           firebase.auth.EmailAuthProvider.PROVIDER_ID,

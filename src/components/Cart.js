@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 import {useTransition, animated} from 'react-spring'
 import styled from 'styled-components';
 import CartItem from './CartItem';
+import useClickOutside from '../utilities/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -96,19 +97,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
         enter: { opacity: 1, width: "100%" },
         leave: { opacity: 0, width: "0%" }
     });
-    const handleClick = useCallback(event => {
-        if(showCart && !event.target.classList.value.includes("cart")) {
-            setShowCart(false);
-        }
-      });
-    useEffect(() => {
-        window.addEventListener('click', handleClick);
-    
-        return () => {
-          window.removeEventListener('click', handleClick);
-        };
-      }, [handleClick]);
-    
+    useClickOutside(ref, () => setShowCart(false));
     return (
         transitions.map(({ item, key, props }) => {
             return item && <animated.div key={key} style={props} className="cart" ref={ref}><CartContainer className="cart">
@@ -140,7 +129,5 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
     )
     )
 }
-
-
 
 export default Cart;

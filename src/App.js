@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import firebase from 'firebase';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Product from './pages/Product';
@@ -14,9 +15,11 @@ import GlobalStyles from './components/GlobalStyles';
 import './App.css';
 
 export default function App() {
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ userInfo , setUserInfo ] = useState({});
   const [ showCart, setShowCart ] = useState(false);
   const [ cartItems, setCartItems ] = useLocalStorage([]);
-  const [ products, setProducts ] = useState([]);
+  
   const incrementItem = (item) => {
      
   }
@@ -37,27 +40,27 @@ export default function App() {
   }
 
   useEffect(() => {
-    const proxy = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://world-treats-api.herokuapp.com/products"
-    fetch(proxy + url)
-    .then(res => res.json())
-    .then(response => {
-      console.log(response)
-      setProducts(response)
-    })
-    .catch(err => console.log(err))
-  }, [setProducts]);
+    firebase.auth().onAuthStateChanged(
+      user => {
+        setIsLoggedIn(!!user);
+        setUserInfo(firebase.auth().currentUser)
+        console.log(isLoggedIn);
+        console.log(userInfo);
+      });
+  }) 
+
+  
 
   return (
     <Router basename="/world-treats">
       <GlobalStyles showCart={showCart}/>
-      <Navbar cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} removeItem={removeItem}/>
+      <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} removeItem={removeItem}/>
       <Switch>
           <Route path="/products/:id">
-            <Product products={products} addToCart={addToCart}/>
+            <Product addToCart={addToCart}/>
           </Route>
           <Route path="/products">
-            <Products products={products}/>
+            <Products />
           </Route>
           <Route path="/login">
             <Login />
