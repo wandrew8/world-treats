@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Cart from './Cart';
+import LoginModal from './LoginModal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
@@ -30,6 +31,7 @@ const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, us
 
     return (
         <React.Fragment>
+            <LoginModal setShowModal={setShowModal} showModal={showModal}/>
             <Navigation>
                 <div>
                     <Link to="/">World Treats</Link>

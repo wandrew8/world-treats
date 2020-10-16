@@ -6,7 +6,7 @@ import useClickOutside from '../utilities/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
-const CartContainer = styled.div`
+const CartContainer = styled(animated.div)`
     width: 75%;
     min-width: 300px;
     max-width: 400px;
@@ -93,14 +93,14 @@ const CartContainer = styled.div`
 const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) => {
     const ref = useRef();
     const transitions = useTransition(showCart, null, {
-        from: { opacity: 0, width: "0%" },
-        enter: { opacity: 1, width: "100%" },
-        leave: { opacity: 0, width: "0%" }
+        from: { transform: "translateX(100%)" },
+        enter: { transform: "translateX(0%)" },
+        leave: { transform: "translateX(calc(103%)" }
     });
     useClickOutside(ref, () => setShowCart(false));
     return (
         transitions.map(({ item, key, props }) => {
-            return item && <animated.div key={key} style={props} className="cart" ref={ref}><CartContainer className="cart">
+            return item && <CartContainer key={key} style={props} className="cart" ref={ref}>
                 <div className="cart-heading">
                     <h2>Your Cart</h2>
                     <button className="button"><FontAwesomeIcon onClick={() => setShowCart(false)} icon={faChevronRight} /></button>
@@ -124,7 +124,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                     <button className="cartButtons cartCheckout">Checkout Now</button>
                 </div>
 
-            </CartContainer></animated.div>
+            </CartContainer>
         }
     )
     )
