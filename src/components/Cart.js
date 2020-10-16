@@ -24,6 +24,7 @@ const CartContainer = styled(animated.div)`
         width: 35px;
         transition: 200ms ease-in;
         cursor: pointer;
+        outline: none;
         border: solid lightgray 2px;
     }
 
@@ -57,6 +58,8 @@ const CartContainer = styled(animated.div)`
         border: solid blue 2px;
         display: block;
         margin: 10px auto;
+        outline: none;
+        cursor: pointer;
         background-color: ${props => props.primary ? "blue" : "white"};
     }
 
@@ -120,7 +123,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                         <FontAwesomeIcon className="info" icon={faExclamationCircle}></FontAwesomeIcon>
                         Spend $50 more for free shipping
                     </div>
-                    <button className="cartButtons">Keep Shopping</button>
+                    <button onClick={() => setShowCart(false)} className="cartButtons">Keep Shopping</button>
                     <button className="cartButtons cartCheckout">Checkout Now</button>
                 </div>
 
