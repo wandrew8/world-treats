@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import FirebaseAuth from './FirebaseAuth';
 import { animated, useTransition } from 'react-spring'
+import { CloseButton } from './Button';
 import styled from 'styled-components';
 import useClickOutside from '../utilities/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,11 +24,6 @@ const Modal = styled(animated.div)`
     display: flex;
     align-items: center;
     justify-content: center;
-    button {
-        border: none;
-        background: none;
-        outline: none;
-    }
     .icon {
         position: absolute;
         top: 20px;
@@ -49,7 +45,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
         transitions.map(({ item, key, props }) => {
             return item && <Modal key={key} style={props} ref={ref} >
                     <div>
-                        <button onClick={() => setShowModal(false)}><FontAwesomeIcon icon={faTimes} className="icon"></FontAwesomeIcon></button>
+                        <CloseButton onClick={() => setShowModal(false)}><FontAwesomeIcon icon={faTimes} className="icon"></FontAwesomeIcon></CloseButton>
                         <h2>Login to your Account</h2>
                         <FirebaseAuth />
                     </div>

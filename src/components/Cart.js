@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 import {useTransition, animated} from 'react-spring'
 import styled from 'styled-components';
 import CartItem from './CartItem';
+import { PrimaryButton, SecondaryButton, IconButtonSquare } from './Button';
 import useClickOutside from '../utilities/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
@@ -18,16 +19,7 @@ const CartContainer = styled(animated.div)`
     box-shadow: 0px 0px 5px 10px rgba(0,0,0,0.1);
     background-color: white;
     overflow: hidden;
-    .button {
-        background: none;
-        height: 35px;
-        width: 35px;
-        transition: 200ms ease-in;
-        cursor: pointer;
-        outline: none;
-        border: solid lightgray 2px;
-    }
-
+    
     .cart-heading {
         display: flex;
         width: 90%;
@@ -49,23 +41,6 @@ const CartContainer = styled(animated.div)`
         bottom: 0;
         width: 100%;
         padding-bottom: 2rem;
-    }
-
-    .cartButtons {
-        width: 240px;
-        height: 50px;
-        border-radius: 50px;
-        border: solid blue 2px;
-        display: block;
-        margin: 10px auto;
-        outline: none;
-        cursor: pointer;
-        background-color: ${props => props.primary ? "blue" : "white"};
-    }
-
-    .cartCheckout {
-        color: white;
-        background-color: blue;
     }
 
     .subtotal {
@@ -106,7 +81,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
             return item && <CartContainer key={key} style={props} className="cart" ref={ref}>
                 <div className="cart-heading">
                     <h2>Your Cart</h2>
-                    <button className="button"><FontAwesomeIcon onClick={() => setShowCart(false)} icon={faChevronRight} /></button>
+                    <IconButtonSquare><FontAwesomeIcon onClick={() => setShowCart(false)} icon={faChevronRight} /></IconButtonSquare>
                 </div>
                 <hr/>
                 <div className="items-container cart">
@@ -123,8 +98,8 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                         <FontAwesomeIcon className="info" icon={faExclamationCircle}></FontAwesomeIcon>
                         Spend $50 more for free shipping
                     </div>
-                    <button onClick={() => setShowCart(false)} className="cartButtons">Keep Shopping</button>
-                    <button className="cartButtons cartCheckout">Checkout Now</button>
+                    <SecondaryButton onClick={() => setShowCart(false)}>Keep Shopping</SecondaryButton>
+                    <PrimaryButton>Checkout Now</PrimaryButton>
                 </div>
 
             </CartContainer>

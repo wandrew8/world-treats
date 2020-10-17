@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import convertUSD from '../utilities/convertUSD';
+import { CloseButton, IconButton } from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,25 +11,6 @@ const Container = styled.div`
     hr {
         width: 90%;
     }
-`;
-
-const CloseButton = styled.button`
-    background: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-`;
-
-const Button = styled.button`
-    background: none;
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    margin: 0px 10px;
 `;
 
 const Item = styled.div`
@@ -55,18 +38,13 @@ const Item = styled.div`
     
 `;
 
-const convertUSD = (num) => {
-    const dollars = num / 100;
-    return dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
-}
-
 const CartItem = ({item, removeItem}) => {
     const { price, name, amountOrdered, mainImage, packageDescription } = item
     return (
         <Container>
             <Item>
                 <div>
-                    <CloseButton className="cart" onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
+                    <CloseButton onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
                     <img src={mainImage} alt={name} />
                 </div>
                 <div className="item-description">
@@ -74,9 +52,9 @@ const CartItem = ({item, removeItem}) => {
                     <div className="total">
                         <p>{packageDescription} {convertUSD(price)}</p>
                         <div className="addItems">
-                            <Button className="button" onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
+                            <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></IconButton>
                             {amountOrdered}
-                            <Button className="button" onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+                            <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></IconButton>
                         </div>
                     </div>
                 </div>
