@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import Breadcrumb from '../components/Breadcrumb';
+import styled from 'styled-components';
+
+const MainContainer = styled.div`
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+`;
 
 const Products = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -23,8 +32,9 @@ const Products = () => {
         return string.split(" ").join("-");
     }
     return (
-        <div>
-            <h1>Products Page</h1>
+        <>
+            <Breadcrumb />
+            <MainContainer>
             { isLoading && <Spinner />}
             {products.map(item => {
                 const { allergens, category, country, description, ingredients, inventory, mainImage, name, packageDescription, packageType, price, size, subtitle } = item;
@@ -32,7 +42,8 @@ const Products = () => {
                     <Link to={`/products/${kebabCase(name)}`}><h1>{name}</h1></Link>
                 )
             })}
-        </div>
+            </MainContainer>
+        </>
     )
 }
 

@@ -8,7 +8,8 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 const Crumbs = styled.nav`
     color: lightgray;
     font-weight: 700;
-    margin: 2rem 0rem;
+    max-width: 900px;
+    margin: 2rem auto;
     a {
         text-decoration: none;
         transition: 200ms ease-in;
@@ -28,7 +29,7 @@ const Crumbs = styled.nav`
 const Breadcrumb = ({ category, name }) => {
     return (
         <Crumbs>
-            <Link to="/">Home</Link><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><Link to="/products">All</Link><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><Link to={`/category/${category}`}>{capitalize(category)}</Link><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><span className="current">{name}</span>
+            <Link to="/">Home</Link><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><Link to="/products"><span className={!name && !category ? "current" : ""}>All</span></Link>{ category ? <span><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><Link to={`/category/${category}`}><span className={name ? "" : "current"}>{capitalize(category)}</span></Link></span> : null }{name ? <span><FontAwesomeIcon icon={faChevronRight} className="icon"></FontAwesomeIcon><span className="current">{name}</span></span> : null }
         </Crumbs>
     )
 }
