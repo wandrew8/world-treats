@@ -27,6 +27,25 @@ const ButtonSecondary = styled.button`
     color: ${props => props.theme.primary};
 `;
 
+const ButtonTag = styled.button`
+    width: 145px;
+    height: 50px;
+    border-radius: 50px;
+    padding: 5px;
+    border: solid ${props => props.theme.primary} 1px;
+    display: block;
+    margin: 10px auto;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+    color: ${props => props.theme.primary};
+    transition: 300ms ease-in;
+    &:hover {
+        background-color: ${props => props.theme.primary};
+        color: white;
+    }
+`;
+
 const SquareIconButton = styled.button`
     background: none;
     height: 35px;
@@ -111,5 +130,13 @@ export function InvisibleButton(props) {
         <ButtonInvisible onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonInvisible>
+    )
+}
+
+export function TagButton(props) {
+    return (
+        <ButtonTag onClick={props.onClick ? props.onClick.bind(this) : null}>
+            {props.children}
+        </ButtonTag>
     )
 }

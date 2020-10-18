@@ -30,18 +30,25 @@ const Container = styled.div`
         margin: 0 auto;
     }
     .imageGallery {
-        display: block;
+        display: flex;
+        align-items: center;
         margin: 1rem 0rem;
         img {
+            position: relative;
             cursor: pointer;
-            width: 150px;
-            height: 150px;
             box-sizing: content-box;
 
+            width: 125px;
+            height: 125px;
+            margin-right: 10px;
+            padding: 5px;
+            transition: border-bottom 200ms ease-in;
         }
     }
     .currentImage {
         box-sizing: content-box;
+        height: 115px !important;
+        width: 115px !important;
         border-bottom: solid ${props => props.theme.primary} 5px;
     }
     .quantity-container {
