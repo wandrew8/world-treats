@@ -5,12 +5,12 @@ const ButtonPrimary = styled.button`
     width: 240px;
     height: 50px;
     border-radius: 50px;
-    border: solid blue 2px;
+    border: solid ${props => props.theme.primary} 2px;
     display: block;
     margin: 10px auto;
     outline: none;
     cursor: pointer;
-    background-color: blue;
+    background-color: ${props => props.theme.primary};
     color: white;
 `;
 
@@ -18,13 +18,13 @@ const ButtonSecondary = styled.button`
     width: 240px;
     height: 50px;
     border-radius: 50px;
-    border: solid blue 2px;
+    border: solid ${props => props.theme.primary} 2px;
     display: block;
     margin: 10px auto;
     outline: none;
     cursor: pointer;
     background-color: white;
-    color: blue;
+    color: ${props => props.theme.primary};
 `;
 
 const SquareIconButton = styled.button`
@@ -57,6 +57,13 @@ const ButtonIcon = styled.button`
     margin: 0px 10px;
     cursor: pointer;
     outline: none;
+`;
+
+const ButtonInvisible = styled.button`
+    background: none;
+    outline: none;
+    cursor: pointer;
+    border: none;
 `;
 
 export function PrimaryButton(props) {
@@ -96,5 +103,13 @@ export function CloseButton(props) {
         <ButtonClose onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonClose>
+    )
+}
+
+export function InvisibleButton(props) {
+    return (
+        <ButtonInvisible onClick={props.onClick ? props.onClick.bind(this) : null}>
+            {props.children}
+        </ButtonInvisible>
     )
 }

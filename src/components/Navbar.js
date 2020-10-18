@@ -12,7 +12,7 @@ const Navigation = styled.nav`
     width: 100%;
     margin: 0 auto;
     padding: 1rem 4rem;
-    background-color: teal;
+    background-color: ${props => props.theme.primary};
     a {
         color: white;
         text-decoration: none;

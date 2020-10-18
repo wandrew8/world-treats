@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     h1 {
     font-size: 2em;
     margin: 0.67em 0;
-    color: blue;
+    color: ${props => props.theme.primary};
     }
 
     h1, h2, h3, h4, h5, h6 {

@@ -19,6 +19,7 @@ const CartContainer = styled(animated.div)`
     box-shadow: 0px 0px 5px 10px rgba(0,0,0,0.1);
     background-color: white;
     overflow: hidden;
+    z-index: 100;
     
     .cart-heading {
         display: flex;

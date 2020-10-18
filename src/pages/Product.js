@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import SingleProduct from '../components/SingleProduct';
+
+const MainContainer = styled.div`
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+`;
 
 const Product = ({ addToCart }) => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -20,11 +28,10 @@ const Product = ({ addToCart }) => {
         .catch(err => console.log(err))
       }, [id]);
     return (
-        <div>
-            <h1>Product Page</h1>
+        <MainContainer>
             { isLoading && <Spinner />}
             {product.name ? <SingleProduct product={product} addToCart={addToCart} /> : null }
-        </div>
+        </MainContainer>
     )
 }
 
