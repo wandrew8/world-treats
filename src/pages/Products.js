@@ -45,6 +45,19 @@ const ProductsContainer = styled.main`
 const Products = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ products, setProducts ] = useState([]);
+    const [ countries, setCountries ] = useState([]);
+    const [ filterByCountry, setFilterByCountry ] = useState("");
+
+    const getCountries = () => {
+        const proxy = "https://cors-anywhere.herokuapp.com/";
+        const url = "https://world-treats-api.herokuapp.com/products/countries/getall"
+        fetch(proxy + url)
+        .then(res => res.json())
+        .then(response => {
+          setCountries(response)
+        })
+        .catch(err => console.log(err))
+    }
     
     useEffect(() => {
         const proxy = "https://cors-anywhere.herokuapp.com/";
@@ -57,7 +70,8 @@ const Products = () => {
           setIsLoading(false);
         })
         .catch(err => console.log(err))
-      }, [setProducts]);
+        getCountries();
+      }, []);
 
     const kebabCase = (string) => {
         return string.split(" ").join("-");
@@ -81,7 +95,11 @@ const Products = () => {
                 </div>
                 <h3>Country</h3>
                 <div className="buttonContainer">
-
+                    { countries.map(country => {
+                        return (
+                            <TagButton onClick={() => setFilterByCountry(country)}>{country}</TagButton>
+                        )
+                    })}
                 </div>
                 
             </div>
@@ -95,7 +113,11 @@ const Products = () => {
                     </form>
                 </div>
                 <div className="product-card-container">
-                    {products.map(item => {
+                    {filterByCountry ? products.filter(product => (product.country === filterByCountry)).map(item => {
+                        return (
+                            <Link to={`/products/${kebabCase(item.name)}`}><ProductCard product={item} /></Link>
+                        )
+                    }) : products.map(item => {
                         return (
                             <Link to={`/products/${kebabCase(item.name)}`}><ProductCard product={item} /></Link>
                         )
