@@ -98,7 +98,7 @@ const Container = styled.div`
         display: flex;
         flex-flow: row wrap;
         p {
-            margin: 3px 5px;
+            margin: 3px 2px;
         }
     }
 `;

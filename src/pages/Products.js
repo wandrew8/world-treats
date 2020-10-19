@@ -35,6 +35,10 @@ const ProductsContainer = styled.main`
         justify-content: space-evenly;
         align-items: center;
         grid-gap: 1rem;
+        position: relative;
+        .message {
+            justify-self: center;
+        }
     }
     a {
         text-decoration: none;
@@ -47,6 +51,8 @@ const Products = () => {
     const [ products, setProducts ] = useState([]);
     const [ countries, setCountries ] = useState([]);
     const [ filterByCountry, setFilterByCountry ] = useState("");
+    const [ filterByCategory, setFilterByCategory ] = useState("");
+    const [ numItems, setNumItems ] = useState(0);
 
     const getCountries = () => {
         const proxy = "https://cors-anywhere.herokuapp.com/";
@@ -68,6 +74,7 @@ const Products = () => {
           console.log(response)
           setProducts(response)
           setIsLoading(false);
+          setNumItems(response.length);
         })
         .catch(err => console.log(err))
         getCountries();
@@ -76,28 +83,40 @@ const Products = () => {
     const kebabCase = (string) => {
         return string.split(" ").join("-");
     }
+
+    const filterCountries = (country) => {
+        setFilterByCountry(country);
+        const length = products.filter(product => (product.country === country)).length;
+        setNumItems(length);
+    }
+
+    const filterCategories = (category) => {
+        setFilterByCategory(category);
+        const length = products.filter(product => (product.category === category)).length;
+        setNumItems(length);
+
+    }
     return (
         <>
             <Breadcrumb />
             <MainContainer>
-            { isLoading && <Spinner />}
             <ProductsContainer>
             <div className="filterOptions">
                 <h2>Filter By</h2>
                 <hr />
                 <h3>Product Type</h3>
                 <div className="buttonContainer">
-                    <TagButton>Candy</TagButton>
-                    <TagButton>Chips & Snacks</TagButton>
-                    <TagButton>Cakes & Cookies</TagButton>
-                    <TagButton>Chocolate</TagButton>
+                    <TagButton selected={filterByCategory === "candy"} onClick={() => filterCategories("candy")}>Candy</TagButton>
+                    <TagButton selected={filterByCategory === "chips"} onClick={() => filterCategories("chips")}>Chips & Snacks</TagButton>
+                    <TagButton selected={filterByCategory === "cakes"} onClick={() => filterCategories("cakes")}>Cakes & Cookies</TagButton>
+                    <TagButton selected={filterByCategory === "chocolate"} onClick={() => filterCategories("chocolate")}>Chocolate</TagButton>
 
                 </div>
                 <h3>Country</h3>
                 <div className="buttonContainer">
                     { countries.map(country => {
                         return (
-                            <TagButton onClick={() => setFilterByCountry(country)}>{country}</TagButton>
+                            <TagButton selected={filterByCountry === country} onClick={() => filterCountries(country)}>{country}</TagButton>
                         )
                     })}
                 </div>
@@ -105,7 +124,7 @@ const Products = () => {
             </div>
             <div>
                 <div className="sort">
-                    <h2>{ products.length === 1 ? `${products.length} item` : `${products.length} items`}</h2>
+                    <h2>{ numItems === 1 ? `${numItems} item` : `${numItems} items`}</h2>
                     <form>
                         <select>
                             <option>Sort By</option>
@@ -113,7 +132,18 @@ const Products = () => {
                     </form>
                 </div>
                 <div className="product-card-container">
-                    {filterByCountry ? products.filter(product => (product.country === filterByCountry)).map(item => {
+                    { isLoading && <Spinner />}
+                    { numItems === 0 && !isLoading ? <p className="message">No items found</p> : null}
+                    {filterByCountry || filterByCategory? products.filter(product => {
+                        if (filterByCategory && filterByCountry) {
+                            return product.category === filterByCategory && product.country === filterByCountry;
+                        } else if (filterByCategory) {
+                            return product.category === filterByCategory
+                        } else if (filterByCountry) {
+                            return product.country === filterByCountry
+                        }
+                        }
+                        ).map(item => {
                         return (
                             <Link to={`/products/${kebabCase(item.name)}`}><ProductCard product={item} /></Link>
                         )

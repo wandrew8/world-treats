@@ -37,8 +37,8 @@ const ButtonTag = styled.button`
     margin: 10px auto;
     outline: none;
     cursor: pointer;
-    background-color: white;
-    color: ${props => props.theme.primary};
+    background-color: ${ props => props.selected === true ? props.theme.primary : "white"};
+    color: ${props => props.selected === true ? "white" : props.theme.primary};
     transition: 300ms ease-in;
     &:hover {
         background-color: ${props => props.theme.primary};
@@ -111,7 +111,7 @@ export function IconButtonSquare(props) {
 
 export function IconButton(props) {
     return (
-        <ButtonIcon onClick={props.onClick ? props.onClick.bind(this) : null}>
+        <ButtonIcon selected={props.selected} onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonIcon>
     )
@@ -135,7 +135,7 @@ export function InvisibleButton(props) {
 
 export function TagButton(props) {
     return (
-        <ButtonTag onClick={props.onClick ? props.onClick.bind(this) : null}>
+        <ButtonTag selected={props.selected} onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonTag>
     )
