@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard'
 import { TagButton } from '../components/Button';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
+import { kebabCase } from '../utilities/utilityFunctions';
 
 const MainContainer = styled.div`
     width: 90%;
@@ -13,10 +14,11 @@ const MainContainer = styled.div`
     position: relative;
 `;
 
-const ProductsContainer = styled.main`
+export const ProductsContainer = styled.main`
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-gap: 1.5rem;
+    min-height: 75vh;
     .sort {
         display: flex;
         align-items: center;
@@ -44,6 +46,11 @@ const ProductsContainer = styled.main`
         text-decoration: none;
         color: black;
     }
+    .buttonHolder {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 `;
 
 const Products = () => {
@@ -64,8 +71,8 @@ const Products = () => {
         })
         .catch(err => console.log(err))
     }
-    
-    useEffect(() => {
+
+    const getProducts = () => {
         const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = "https://world-treats-api.herokuapp.com/products"
         fetch(proxy + url)
@@ -77,12 +84,12 @@ const Products = () => {
           setNumItems(response.length);
         })
         .catch(err => console.log(err))
+    }
+    
+    useEffect(() => {
+        getProducts();
         getCountries();
       }, []);
-
-    const kebabCase = (string) => {
-        return string.split(" ").join("-");
-    }
 
     const filterCountries = (country) => {
         setFilterByCountry(country);

@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import { ThemeProvider } from 'styled-components';
 import Home from './pages/Home';
 import Products from './pages/Products';
+import Footer from './components/Footer';
 import Product from './pages/Product';
 import Category from './pages/Category';
 import Navbar from './components/Navbar';
@@ -60,19 +61,20 @@ export default function App() {
         <GlobalStyles showCart={showCart}/>
         <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} removeItem={removeItem}/>
         <Switch>
-            <Route path="/products/:id">
-              <Product addToCart={addToCart}/>
-            </Route>
-            <Route path="/products">
-              <Products />
-            </Route>
-            <Route path="/category/:categoryName">
-              <Category />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+          <Route path="/products/:id">
+            <Product addToCart={addToCart}/>
+          </Route>
+          <Route path="/products">
+            <Products />
+          </Route>
+          <Route path="/category/:categoryName">
+            <Category />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+        <Footer />
       </ThemeProvider>
     </Router>
   );

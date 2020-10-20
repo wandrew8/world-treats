@@ -46,6 +46,25 @@ const ButtonTag = styled.button`
     }
 `;
 
+const SmallButtonTag = styled.button`
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    padding: 5px;
+    border: solid ${props => props.theme.primary} 1px;
+    display: inline;
+    margin: 10px auto;
+    outline: none;
+    cursor: pointer;
+    background-color: ${ props => props.selected === true ? props.theme.primary : "white"};
+    color: ${props => props.selected === true ? "white" : props.theme.primary};
+    transition: 300ms ease-in;
+    &:hover {
+        background-color: ${props => props.theme.primary};
+        color: white;
+    }
+`;
+
 const SquareIconButton = styled.button`
     background: none;
     height: 35px;
@@ -138,5 +157,13 @@ export function TagButton(props) {
         <ButtonTag selected={props.selected} onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonTag>
+    )
+}
+
+export function SmallTagButton(props) {
+    return (
+        <SmallButtonTag selected={props.selected} onClick={props.onClick ? props.onClick.bind(this) : null}>
+            {props.children}
+        </SmallButtonTag>
     )
 }
