@@ -57,6 +57,7 @@ const Products = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ products, setProducts ] = useState([]);
     const [ countries, setCountries ] = useState([]);
+    const [ filteredProducts, setFilteredProducts ] = useState([]);
     const [ filterByCountry, setFilterByCountry ] = useState("");
     const [ filterByCategory, setFilterByCategory ] = useState("");
     const [ numItems, setNumItems ] = useState(0);
@@ -93,16 +94,17 @@ const Products = () => {
 
     const filterCountries = (country) => {
         setFilterByCountry(country);
-        const length = products.filter(product => (product.country === country)).length;
+        const length = filterByCategory ? products.filter(product => (product.category === filterByCategory)).filter(product => (product.country === country)).length : products.filter(product => (product.country === country)).length;
         setNumItems(length);
     }
 
     const filterCategories = (category) => {
         setFilterByCategory(category);
-        const length = products.filter(product => (product.category === category)).length;
+        const length = filterByCountry ? products.filter(product => (product.country === filterByCountry)).filter(product => (product.category === category)).length : products.filter(product => (product.category === category)).length;;
         setNumItems(length);
 
     }
+   
     return (
         <>
             <Breadcrumb />
@@ -141,22 +143,20 @@ const Products = () => {
                 <div className="product-card-container">
                     { isLoading && <Spinner />}
                     { numItems === 0 && !isLoading ? <p className="message">No items found</p> : null}
-                    {filterByCountry || filterByCategory? products.filter(product => {
+                    { products.filter(product => {
                         if (filterByCategory && filterByCountry) {
                             return product.category === filterByCategory && product.country === filterByCountry;
                         } else if (filterByCategory) {
                             return product.category === filterByCategory
                         } else if (filterByCountry) {
                             return product.country === filterByCountry
+                        } else {
+                            return product;
                         }
                         }
                         ).map(item => {
                         return (
-                            <Link to={`/products/${kebabCase(item.name)}`}><ProductCard product={item} /></Link>
-                        )
-                    }) : products.map(item => {
-                        return (
-                            <Link to={`/products/${kebabCase(item.name)}`}><ProductCard product={item} /></Link>
+                            <ProductCard product={item} url={kebabCase(item.name)} />
                         )
                     })}
                 </div>

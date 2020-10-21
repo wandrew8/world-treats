@@ -9,6 +9,7 @@ const MainContainer = styled.div`
     max-width: 900px;
     margin: 0 auto;
     position: relative;
+    min-height: 75vh;
 `;
 
 const Product = ({ addToCart }) => {
@@ -29,8 +30,7 @@ const Product = ({ addToCart }) => {
       }, [id]);
     return (
         <MainContainer>
-            { isLoading && <Spinner />}
-            {product.name ? <SingleProduct product={product} addToCart={addToCart} /> : null }
+            {product?.name && !isLoading ? <SingleProduct product={product} isLoading={isLoading} addToCart={addToCart} /> : null }
         </MainContainer>
     )
 }
