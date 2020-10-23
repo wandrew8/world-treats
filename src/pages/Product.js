@@ -30,7 +30,8 @@ const Product = ({ addToCart }) => {
       }, [id]);
     return (
         <MainContainer>
-            {product?.name && !isLoading ? <SingleProduct product={product} isLoading={isLoading} addToCart={addToCart} /> : null }
+            { isLoading ? <Spinner /> : null}
+            {product?.name && !isLoading ? <SingleProduct product={product} addToCart={addToCart} /> : null }
         </MainContainer>
     )
 }

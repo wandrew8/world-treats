@@ -88,7 +88,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                 <div className="items-container cart">
                     {cartItems.length > 0 ? cartItems.map(item => {
                         return (
-                            <CartItem item={item} removeItem={removeItem}/>
+                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem}/>
                         )
                     }) : <div className="message">You have no items in your cart</div>}
                 </div>

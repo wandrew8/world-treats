@@ -34,15 +34,30 @@ export default function App() {
 
   const removeItem = (el) => {
     const filtered = cartItems.filter(item => {
-      return item.name !== el;
+      return item.product.name !== el;
     })
     setCartItems(filtered);
   }
 
   const addToCart = item => {
-    setCartItems([...item])
+    let identicalItem;
+    for (let i = 0; i < cartItems.length; i++){
+      if(cartItems[i].product.name === item.product.name) {
+        identicalItem = true;
+      } else {
+        identicalItem = false;
+      }
+    }    
+    console.log(identicalItem)
+    if (identicalItem) {
+      setShowCart(true);
+    } else {
+      setCartItems([...cartItems, item]);
+      setShowCart(true);
+    }
   }
-
+  
+  console.log(cartItems)
   useEffect(() => {
     firebase.auth().onAuthStateChanged(
       user => {
@@ -59,7 +74,7 @@ export default function App() {
     <Router basename="/world-treats">
       <ThemeProvider theme={theme}>
         <GlobalStyles showCart={showCart}/>
-        <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} removeItem={removeItem}/>
+        <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} addToCart={addToCart} removeItem={removeItem}/>
         <Switch>
           <Route path="/products/:id">
             <Product addToCart={addToCart}/>

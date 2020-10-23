@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import convertUSD from '../utilities/convertUSD';
 import { animated, useTransition } from 'react-spring'
 import Banner from './Banner';
-import Spinner from './Spinner';
 import Breadcrumb from './Breadcrumb';
 import { IconButton, PrimaryButton, InvisibleButton } from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -104,7 +103,7 @@ const Container = styled.div`
     }
 `;
 
-const SingleProduct = ({ product, isLoading }) => {
+const SingleProduct = ({ product, addToCart }) => {
     const [ quantity, setQuantity ] = useState(1);
     const { allergens, category, country, description, imageGallery, ingredients, inventory, mainImage, name, packageDescription, packageType, price, size, subtitle } = product;
     const defaultImage = mainImage ? mainImage : "https://images.unsplash.com/photo-1534119428213-bd2626145164?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2936&q=80";
@@ -128,6 +127,14 @@ const SingleProduct = ({ product, isLoading }) => {
         setTotal((quantity + 1) * price)
     }
 
+    const cart = () => {
+        const cartItem = {
+            product: product,
+            quantity: quantity
+        }
+        addToCart(cartItem);
+    }
+
     const formatText = () => {
         if (allergens.length === 1) {
             return allergens[0];
@@ -148,7 +155,6 @@ const SingleProduct = ({ product, isLoading }) => {
         <Banner country={country} />
         <Breadcrumb category={category} name={name}/>
         <Container>
-            { isLoading && <Spinner />}
             <div>
                 <img className="mainImage" src={displayImage} alt={name} />
                 <div className="imageGallery">
@@ -177,7 +183,7 @@ const SingleProduct = ({ product, isLoading }) => {
                         </div>
                     </div>
                 </div>
-                <PrimaryButton>{convertUSD(total)} - Add to cart</PrimaryButton>
+                <PrimaryButton onClick={() => cart()}>{convertUSD(total)} - Add to cart</PrimaryButton>
                 <InvisibleButton onClick={() => setShowIngredients(!showIngredients)}>
                     <p className="ingredientsTitle">
                         Ingredients 

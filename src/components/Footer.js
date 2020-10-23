@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const FooterStyling = styled.footer`
-    height: 500px;
     width: 100%;
     color: white;
     padding: 2rem;
@@ -12,12 +12,35 @@ const FooterStyling = styled.footer`
     h1 {
         color: white;
     }
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2rem;
+    }
 `;
 
 const Footer = () => {
     return (
         <FooterStyling>
             <h1>Footer Component</h1>
+            <div className="container">
+                <div>
+                    <h2>Shop By Category</h2>
+                        <Link to="/products/chips">Chips & Snacks</Link>
+                        <Link to="/products/candy">Candy</Link>
+                        <Link to="/products/cake">Cakes & Cookies</Link>
+                        <Link to="/products/chocolate">Chocolate</Link>
+                </div>
+                <div>
+                    <h2>About Us</h2>
+                        <p>World Treats is a fictitous e-commerce store build as a side-project in my spare time to continue to level up my coding abilities</p>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <hr />
+            <h3>Copyright &#169; { new Date().getFullYear()}</h3>
         </FooterStyling>
     )
 }

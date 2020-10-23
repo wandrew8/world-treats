@@ -24,6 +24,8 @@ const Modal = styled(animated.div)`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    z-index: 100;
     .icon {
         position: absolute;
         top: 20px;

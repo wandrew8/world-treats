@@ -38,8 +38,8 @@ const Item = styled.div`
     
 `;
 
-const CartItem = ({item, removeItem}) => {
-    const { price, name, amountOrdered, mainImage, packageDescription } = item
+const CartItem = ({item, removeItem, quantity}) => {
+    const { price, name, mainImage, packageDescription } = item
     return (
         <Container>
             <Item>
@@ -53,7 +53,7 @@ const CartItem = ({item, removeItem}) => {
                         <p>{packageDescription} {convertUSD(price)}</p>
                         <div className="addItems">
                             <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></IconButton>
-                            {amountOrdered}
+                            {quantity}
                             <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></IconButton>
                         </div>
                     </div>
