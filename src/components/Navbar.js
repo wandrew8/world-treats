@@ -24,7 +24,7 @@ const Navigation = styled.nav`
     }
 `;
 
-const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, userName, addToCart }) => {
+const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, userName, addToCart, incrementItem, decrementItem }) => {
     const [ showModal, setShowModal ] = useState(false);
 
 
@@ -42,7 +42,7 @@ const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, us
                     <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
                 </div>
             </Navigation>
-            <Cart showCart={showCart} setShowCart={setShowCart} cartItems={cartItems} setCartItems={setCartItems} addToCart={addToCart} removeItem={removeItem}/>
+            <Cart showCart={showCart} setShowCart={setShowCart} cartItems={cartItems} setCartItems={setCartItems} addToCart={addToCart} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem}/>
         </React.Fragment>
     )
 }

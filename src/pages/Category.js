@@ -64,10 +64,22 @@ const Category = () => {
        
       }, [categoryName]);
 
+      const getCategoryName = () => {
+          if (categoryName === 'cake') {
+              return 'Cakes & Cookies'
+          } else if (categoryName === 'candy') {
+              return 'Candy'
+          } else if (categoryName === 'chocolate') {
+              return 'Chocolate'
+          } else {
+              return 'Chips & Snacks'
+          }
+      }
+
     return (
         <>
         <Breadcrumb category={categoryName}/>
-        <Hero category={categoryName} />
+        <Hero category={getCategoryName()} />
         <MainContainer>
             <ProductsContainer>
                 <div className="filterOptions">

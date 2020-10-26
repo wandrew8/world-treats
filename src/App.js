@@ -74,7 +74,7 @@ export default function App() {
     <Router basename="/world-treats">
       <ThemeProvider theme={theme}>
         <GlobalStyles showCart={showCart}/>
-        <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} addToCart={addToCart} removeItem={removeItem}/>
+        <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} addToCart={addToCart} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem}/>
         <Switch>
           <Route path="/products/:id">
             <Product addToCart={addToCart}/>

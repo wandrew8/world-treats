@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 import {useTransition, animated} from 'react-spring'
 import styled from 'styled-components';
 import CartItem from './CartItem';
+import convertUSD from '../utilities/convertUSD';
 import { PrimaryButton, SecondaryButton, IconButtonSquare } from './Button';
 import useClickOutside from '../utilities/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,7 +12,7 @@ const CartContainer = styled(animated.div)`
     width: 75%;
     min-width: 300px;
     max-width: 400px;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     height: 100%;
@@ -69,7 +70,7 @@ const CartContainer = styled(animated.div)`
 `;
 
 
-const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) => {
+const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incrementItem, decrementItem }) => {
     const ref = useRef();
     const transitions = useTransition(showCart, null, {
         from: { transform: "translateX(100%)" },
@@ -77,6 +78,13 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
         leave: { transform: "translateX(calc(103%)" }
     });
     useClickOutside(ref, () => setShowCart(false));
+    const getTotal = () => {
+        let total = 0;
+        cartItems.forEach(item => {
+            total += parseInt(item.product.price) * parseInt(item.quantity);
+        })
+        return total;
+    }
     return (
         transitions.map(({ item, key, props }) => {
             return item && <CartContainer key={key} style={props} className="cart" ref={ref}>
@@ -88,13 +96,13 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem }) =>
                 <div className="items-container cart">
                     {cartItems.length > 0 ? cartItems.map(item => {
                         return (
-                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem}/>
+                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} />
                         )
                     }) : <div className="message">You have no items in your cart</div>}
                 </div>
                 <div className="cart-footer cart">
                 <hr/>
-                    <div className="subtotal"><p>Subtotal:</p><p>$0.00</p></div>
+                    <div className="subtotal"><p>Subtotal:</p><p>{convertUSD(getTotal())}</p></div>
                     <div className="shippingInfo">
                         <FontAwesomeIcon className="info" icon={faExclamationCircle}></FontAwesomeIcon>
                         Spend $50 more for free shipping

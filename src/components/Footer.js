@@ -26,10 +26,10 @@ const Footer = () => {
             <div className="container">
                 <div>
                     <h2>Shop By Category</h2>
-                        <Link to="/products/chips">Chips & Snacks</Link>
-                        <Link to="/products/candy">Candy</Link>
-                        <Link to="/products/cake">Cakes & Cookies</Link>
-                        <Link to="/products/chocolate">Chocolate</Link>
+                        <Link to="/category/chips">Chips & Snacks</Link>
+                        <Link to="/category/candy">Candy</Link>
+                        <Link to="/category/cake">Cakes & Cookies</Link>
+                        <Link to="/category/chocolate">Chocolate</Link>
                 </div>
                 <div>
                     <h2>About Us</h2>

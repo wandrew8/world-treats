@@ -38,8 +38,14 @@ const Item = styled.div`
     
 `;
 
-const CartItem = ({item, removeItem, quantity}) => {
+const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem}) => {
     const { price, name, mainImage, packageDescription } = item
+    const addItem = () => {
+
+    }
+    const minusItem = () => {
+
+    }
     return (
         <Container>
             <Item>

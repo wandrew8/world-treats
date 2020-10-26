@@ -21,6 +21,7 @@ const HeroContainer = styled.header`
             font-size: 4rem;
             color: white;
             text-transform: capitalize;
+            text-shadow: 5px 5px rgba(0,0,0,0.2);
         }
     }
 `;
