@@ -105,7 +105,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                 <div className="items-container cart">
                     {cartItems && cartItems.length > 0 ? cartItems.map((item, index) => {
                         return (
-                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index}/>
+                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index} key={item.product._id}/>
                         )
                     }) : <div className="message">You have no items in your cart</div>}
                 </div>

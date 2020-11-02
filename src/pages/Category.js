@@ -21,6 +21,7 @@ const Category = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ products, setProducts ] = useState([]);
     const [ countries, setCountries ] = useState([]);
+    const [ sort, setSort ] = useState("");
     const [ filterByCountry, setFilterByCountry ] = useState("");
     const [ numItems, setNumItems ] = useState(0);
     const [ showAllCountries, setShowAllCountries ] = useState(true);
@@ -76,6 +77,10 @@ const Category = () => {
           }
       }
 
+      const handleChange = (event) => {
+        setSort(event.target.value);
+      }
+
     return (
         <>
         <Breadcrumb category={categoryName}/>
@@ -102,8 +107,10 @@ const Category = () => {
                     <div className="sort">
                         <h2>{ numItems === 1 ? `${numItems} item` : `${numItems} items`}</h2>
                         <form>
-                            <select>
-                                <option>Sort By</option>
+                            <select value={sort} onChange={handleChange}>
+                                <option value="">Sort By</option>
+                                <option value="priceLowToHigh">Price (Low to High)</option>
+                                <option value="priceHighToLow">Price (High to Low)</option>
                             </select>
                         </form>
                     </div>
@@ -113,15 +120,31 @@ const Category = () => {
                         { !showAllCountries ? products.filter(product => {
                             return product.country === filterByCountry
                             }
-                            ).map(item => {
-                            return (
-                                <ProductCard product={item} url={kebabCase(item.name)} />
-                            )
-                        }) : products.map(item => {
-                            return (
-                                <ProductCard product={item} url={kebabCase(item.name)} />
-                            )
-                        })}
+                            ).sort((a, b) => {
+                            if(sort === "priceLowToHigh") {
+                                return a.price - b.price;
+                            } else if (sort === "priceHighToLow") {
+                                return b.price - a.price;
+                            } else {
+                                return a - b;
+                            }
+                            }).map(item => {
+                                return (
+                                    <ProductCard product={item} url={kebabCase(item.name)} />
+                                )
+                            }) : products.sort((a, b) => {
+                                if(sort === "priceLowToHigh") {
+                                    return a.price - b.price;
+                                } else if (sort === "priceHighToLow") {
+                                    return b.price - a.price;
+                                } else {
+                                    return a - b;
+                                }
+                            }).map(item => {
+                                return (
+                                    <ProductCard product={item} url={kebabCase(item.name)} />
+                                )
+                            })}
                     </div>
                 </div>
             </ProductsContainer>

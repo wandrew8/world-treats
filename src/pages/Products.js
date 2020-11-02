@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import ProductCard from '../components/ProductCard'
-import { TagButton } from '../components/Button';
+import { TagButton, SmallTagButton } from '../components/Button';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
 import { kebabCase } from '../utilities/utilityFunctions';
@@ -57,7 +57,9 @@ const Products = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ products, setProducts ] = useState([]);
     const [ countries, setCountries ] = useState([]);
-    const [ filteredProducts, setFilteredProducts ] = useState([]);
+    const [ sort, setSort ] = useState("");
+    const [ showAllCountries, setShowAllCountries ] = useState(true);
+    const [ showAllCategories, setShowAllCategories ] = useState(true);
     const [ filterByCountry, setFilterByCountry ] = useState("");
     const [ filterByCategory, setFilterByCategory ] = useState("");
     const [ numItems, setNumItems ] = useState(0);
@@ -93,18 +95,34 @@ const Products = () => {
       }, []);
 
     const filterCountries = (country) => {
-        setFilterByCountry(country);
-        const length = filterByCategory ? products.filter(product => (product.category === filterByCategory)).filter(product => (product.country === country)).length : products.filter(product => (product.country === country)).length;
+        let length;
+        if (country === "All") {
+            length = products.length;
+            setFilterByCountry("");
+        } else {
+            setFilterByCountry(country);
+            length = filterByCategory ? products.filter(product => (product.category === filterByCategory)).filter(product => (product.country === country)).length : products.filter(product => (product.country === country)).length;
+        }
         setNumItems(length);
+        setShowAllCountries(false);
     }
 
     const filterCategories = (category) => {
-        setFilterByCategory(category);
-        const length = filterByCountry ? products.filter(product => (product.country === filterByCountry)).filter(product => (product.category === category)).length : products.filter(product => (product.category === category)).length;;
+        let length;
+        if (category === "All") {
+            length = countries.length;
+            setFilterByCategory("");
+        } else {
+            setFilterByCategory(category);
+            length = filterByCountry ? products.filter(product => (product.country === filterByCountry)).filter(product => (product.category === category)).length : products.filter(product => (product.category === category)).length;;
+        }
         setNumItems(length);
-
+        setShowAllCategories(false);
     }
    
+    const handleChange = (event) => {
+        setSort(event.target.value);
+      }
     return (
         <>
             <Breadcrumb />
@@ -113,7 +131,10 @@ const Products = () => {
             <div className="filterOptions">
                 <h2>Filter By</h2>
                 <hr />
-                <h3>Product Type</h3>
+                <div className="buttonHolder">
+                    <h3>Product Type</h3>
+                    <SmallTagButton onClick={() => {setShowAllCategories(true); filterCategories("All");}} selected={filterByCategory === ""}>Show All</SmallTagButton>
+                </div>
                 <div className="buttonContainer">
                     <TagButton selected={filterByCategory === "candy"} onClick={() => filterCategories("candy")}>Candy</TagButton>
                     <TagButton selected={filterByCategory === "chips"} onClick={() => filterCategories("chips")}>Chips & Snacks</TagButton>
@@ -121,7 +142,10 @@ const Products = () => {
                     <TagButton selected={filterByCategory === "chocolate"} onClick={() => filterCategories("chocolate")}>Chocolate</TagButton>
 
                 </div>
-                <h3>Country</h3>
+                <div className="buttonHolder">
+                    <h3>Country</h3>
+                    { countries.length > 1 ? <SmallTagButton onClick={() => {setShowAllCountries(true); filterCountries("All");}} selected={filterByCountry === ""}>Show All</SmallTagButton> : null }
+                </div>
                 <div className="buttonContainer">
                     { countries.map(country => {
                         return (
@@ -135,8 +159,10 @@ const Products = () => {
                 <div className="sort">
                     <h2>{ numItems === 1 ? `${numItems} item` : `${numItems} items`}</h2>
                     <form>
-                        <select>
-                            <option>Sort By</option>
+                        <select value={sort} onChange={handleChange}>
+                            <option value="">Sort By</option>
+                            <option value="priceLowToHigh">Price (Low to High)</option>
+                            <option value="priceHighToLow">Price (High to Low)</option>
                         </select>
                     </form>
                 </div>
@@ -154,9 +180,17 @@ const Products = () => {
                             return product;
                         }
                         }
-                        ).map(item => {
+                        ).sort((a, b) => {
+                            if(sort === "priceLowToHigh") {
+                                return a.price - b.price;
+                            } else if (sort === "priceHighToLow") {
+                                return b.price - a.price;
+                            } else {
+                                return a.name - b.name;
+                            }
+                        }).map(item => {
                         return (
-                            <ProductCard product={item} url={kebabCase(item.name)} />
+                            <ProductCard product={item} url={kebabCase(item.name)} key={item.name}/>
                         )
                     })}
                 </div>

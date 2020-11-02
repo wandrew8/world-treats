@@ -33,7 +33,9 @@ export default function App() {
 
   const decrementItem = (index) => {
     const newArray = [...cartItems];
-    newArray[index].quantity--;
+    if (newArray[index].quantity > 1) {
+      newArray[index].quantity--;
+    };
     setCartItems(newArray);
   }
 

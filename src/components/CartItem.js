@@ -38,19 +38,6 @@ const Item = styled.div`
     
 `;
 
-const Confirm = styled.div`
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    z-index: 150;
-`;
-
 const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem, index}) => {
     const { price, name, mainImage, packageDescription, _id } = item
     const addItem = () => {
@@ -62,7 +49,6 @@ const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem, ind
     return (
         <Container>
             <Item>
-                {quantity === 0 ? <Confirm>Remove Items from Cart?<button>Yes</button><button>No</button></Confirm> : null }
                 <div>
                     <CloseButton onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
                     <img src={mainImage} alt={name} />
