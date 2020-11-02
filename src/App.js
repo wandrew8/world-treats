@@ -19,17 +19,22 @@ export default function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ userInfo , setUserInfo ] = useState({});
   const [ showCart, setShowCart ] = useState(false);
-  const [ cartItems, setCartItems ] = useLocalStorage([]);
+  const [ cartItems, setCartItems ] = useState([]);
   const theme = {
     primary: "#0abde3",
   };
   
-  const incrementItem = (item) => {
+  const incrementItem = (index) => {
+    const newArray = [...cartItems];
+    newArray[index].quantity++;
+    setCartItems(newArray);
      
   }
 
-  const decrementItem = (item) => {
-
+  const decrementItem = (index) => {
+    const newArray = [...cartItems];
+    newArray[index].quantity--;
+    setCartItems(newArray);
   }
 
   const removeItem = (el) => {

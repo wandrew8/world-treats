@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const Container = styled.div`
-    padding: 10px 0px;
     position: relative;
     hr {
         width: 90%;
@@ -20,6 +19,7 @@ const Item = styled.div`
     align-items: center;
     width: 90%;
     margin: 0 auto;
+    padding: 10px 0px;
     h3 {
         margin: 0;
         margin-bottom: 10px;
@@ -38,8 +38,21 @@ const Item = styled.div`
     
 `;
 
-const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem}) => {
-    const { price, name, mainImage, packageDescription } = item
+const Confirm = styled.div`
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    z-index: 150;
+`;
+
+const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem, index}) => {
+    const { price, name, mainImage, packageDescription, _id } = item
     const addItem = () => {
 
     }
@@ -49,6 +62,7 @@ const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem}) =>
     return (
         <Container>
             <Item>
+                {quantity === 0 ? <Confirm>Remove Items from Cart?<button>Yes</button><button>No</button></Confirm> : null }
                 <div>
                     <CloseButton onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
                     <img src={mainImage} alt={name} />
@@ -58,9 +72,9 @@ const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem}) =>
                     <div className="total">
                         <p>{packageDescription} {convertUSD(price)}</p>
                         <div className="addItems">
-                            <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></IconButton>
+                            <IconButton onClick={() => decrementItem(index)}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></IconButton>
                             {quantity}
-                            <IconButton onClick={(e) => { e.preventDefault()}}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></IconButton>
+                            <IconButton onClick={() => incrementItem(index)}><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></IconButton>
                         </div>
                     </div>
                 </div>

@@ -67,6 +67,10 @@ const CartContainer = styled(animated.div)`
         text-align: center;
         margin-top: 2rem;
     }
+    hr {
+        margin: 0;
+        padding: 0;
+    }
 `;
 
 
@@ -78,13 +82,18 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
         leave: { transform: "translateX(calc(103%)" }
     });
     useClickOutside(ref, () => setShowCart(false));
-    const getTotal = () => {
+    const getTotal = useCallback(() => {
         let total = 0;
-        cartItems.forEach(item => {
-            total += parseInt(item.product.price) * parseInt(item.quantity);
-        })
-        return total;
-    }
+        if(cartItems) {
+            cartItems.forEach(item => {
+                total += parseInt(item.product.price) * parseInt(item.quantity);
+            })
+            return total;
+        }
+    })
+    useEffect(() => {
+        getTotal();
+    }, [cartItems, getTotal]);
     return (
         transitions.map(({ item, key, props }) => {
             return item && <CartContainer key={key} style={props} className="cart" ref={ref}>
@@ -94,9 +103,9 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                 </div>
                 <hr/>
                 <div className="items-container cart">
-                    {cartItems.length > 0 ? cartItems.map(item => {
+                    {cartItems && cartItems.length > 0 ? cartItems.map((item, index) => {
                         return (
-                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} />
+                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index}/>
                         )
                     }) : <div className="message">You have no items in your cart</div>}
                 </div>
