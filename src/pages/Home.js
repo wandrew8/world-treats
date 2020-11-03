@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import CategoryGrid from '../components/CategoryGrid';
 
 const HomeContainer = styled.main`
     min-height: 100vh;
@@ -25,6 +26,7 @@ const Home = () => {
                 <h2>Shop in our World Treats store for delicious snacks from around the world</h2>
                 <Link to="/products">Shop Now!</Link>
             </div>
+            <CategoryGrid />
         </HomeContainer>
     )
 }

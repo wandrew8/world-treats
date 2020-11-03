@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import defaultImage from '../images/candy.jpg';
+import candy from '../images/candy.jpg';
+import chocolate from '../images/chocolate.jpg';
+import chips from '../images/chips.jpg';
+import cookies from '../images/cookies.jpg';
+
 const HeroContainer = styled.header`
     width: 100%;
     height: 300px;
@@ -28,11 +32,21 @@ const HeroContainer = styled.header`
 
 const Hero = ({ category }) => {
     const getCategory = () => {
-
+        if(category === "Chips & Snacks") {
+            return chips;
+        } else if (category === "Candy") {
+            return candy;
+        } else if(category === "Cakes & Cookies") {
+            return cookies;
+        } else if(category === "Chocolate") {
+            return chocolate;
+        } else {
+            return candy;
+        }
     }
     return (
         <HeroContainer>
-            <img src={defaultImage} alt="" />
+            <img src={getCategory()} alt="" />
             <div>
                 <h1>{category}</h1>
             </div>
