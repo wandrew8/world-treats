@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
 import Hero from '../components/Hero';
+import ScrollToTopOnMount from '../components/ScrollToTop';
 import { ProductsContainer } from './Products';
 import { TagButton, SmallTagButton } from '../components/Button';
 import ProductCard from '../components/ProductCard';
@@ -83,6 +84,7 @@ const Category = () => {
 
     return (
         <>
+        <ScrollToTopOnMount />
         <Breadcrumb category={categoryName}/>
         <Hero category={getCategoryName()} />
         <MainContainer>

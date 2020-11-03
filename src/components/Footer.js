@@ -17,19 +17,32 @@ const FooterStyling = styled.footer`
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 2rem;
     }
+    .link-container {
+        a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin: 5px;
+            transition: 500ms ease-in;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 `;
 
 const Footer = () => {
     return (
         <FooterStyling>
-            <h1>Footer Component</h1>
             <div className="container">
                 <div>
                     <h2>Shop By Category</h2>
+                    <div className="link-container">
                         <Link to="/category/chips">Chips & Snacks</Link>
                         <Link to="/category/candy">Candy</Link>
                         <Link to="/category/cake">Cakes & Cookies</Link>
                         <Link to="/category/chocolate">Chocolate</Link>
+                    </div>
                 </div>
                 <div>
                     <h2>About Us</h2>
