@@ -108,11 +108,11 @@ const CategoryGrid = () => {
                         <Link to={`/category/${slug}`}>
                             <div className="mask"></div>
                             <img src={image} alt={name} />
-                        </Link>
                         <div className="content">
                             <h2>{name}</h2>
                             {/* <p>{subtitle}</p> */}
                         </div>
+                        </Link>
                     </Item>
                 )
             })}
