@@ -12,6 +12,7 @@ const ButtonPrimary = styled.button`
     cursor: pointer;
     background-color: ${props => props.theme.primary};
     color: white;
+    text-decoration: none;
 `;
 
 const ButtonSecondary = styled.button`

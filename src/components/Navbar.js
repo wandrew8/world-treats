@@ -3,7 +3,7 @@ import Cart from './Cart';
 import LoginModal from './LoginModal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faCookieBite } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 
 const Navigation = styled.nav`
@@ -22,6 +22,13 @@ const Navigation = styled.nav`
         margin: 0px 20px;
         cursor: pointer;
     }
+    .badge {
+        display: flex;
+        align-items: center;
+    }
+    .cookie {
+        margin-right: 0.8rem;
+    }
 `;
 
 const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, userName, addToCart, incrementItem, decrementItem }) => {
@@ -34,7 +41,7 @@ const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, us
             <LoginModal setShowModal={setShowModal} showModal={showModal}/>
             <Navigation>
                 <div>
-                    <Link to="/">World Treats</Link>
+                    <Link className="badge" to="/"><FontAwesomeIcon size="2x" className="cookie" icon={faCookieBite}></FontAwesomeIcon>World Treats</Link>
                 </div>
                 <div>
                     { userName ? userName : ''}

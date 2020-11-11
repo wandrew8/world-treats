@@ -11,6 +11,7 @@ import Products from './pages/Products';
 import Footer from './components/Footer';
 import Product from './pages/Product';
 import Category from './pages/Category';
+import Checkout from './pages/Checkout';
 import Navbar from './components/Navbar';
 import GlobalStyles from './components/GlobalStyles';
 import './App.css';
@@ -91,6 +92,9 @@ export default function App() {
           </Route>
           <Route path="/category/:categoryName">
             <Category />
+          </Route>
+          <Route path="/checkout">
+            <Checkout cartItems={cartItems}/>
           </Route>
           <Route path="/">
             <Home />

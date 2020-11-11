@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import {useTransition, animated} from 'react-spring'
 import styled from 'styled-components';
 import CartItem from './CartItem';
@@ -117,7 +118,7 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                         Spend $50 more for free shipping
                     </div>
                     <SecondaryButton onClick={() => setShowCart(false)}>Keep Shopping</SecondaryButton>
-                    <PrimaryButton>Checkout Now</PrimaryButton>
+                    <Link style={{"textDecoration": "none"}} to="/checkout"><PrimaryButton onClick={() => setShowCart(false)}>Checkout Now</PrimaryButton></Link>
                 </div>
 
             </CartContainer>
