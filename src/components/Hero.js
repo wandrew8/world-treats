@@ -4,6 +4,7 @@ import candy from '../images/candy.jpg';
 import chocolate from '../images/chocolate.jpg';
 import chips from '../images/chips.jpg';
 import cookies from '../images/cookies.jpg';
+import hero from '../images/hero.jpg';
 
 const HeroContainer = styled.header`
     width: 100%;
@@ -41,7 +42,7 @@ const Hero = ({ category }) => {
         } else if(category === "Chocolate") {
             return chocolate;
         } else {
-            return candy;
+            return hero;
         }
     }
     return (

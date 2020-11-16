@@ -21,6 +21,7 @@ const Navigation = styled.nav`
         color: white;
         margin: 0px 20px;
         cursor: pointer;
+        z-index: 10;
     }
     .badge {
         display: flex;
@@ -29,6 +30,26 @@ const Navigation = styled.nav`
     .cookie {
         margin-right: 0.8rem;
     }
+    .cartIcon {
+        display: inline;
+        position: relative;
+    }
+    .number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -10px;
+        right: -10px;
+        background-color: #fff;
+        color: ${props => props.theme.primary};
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;
+        z-index: 5;
+        font-size: 0.8rem;
+    }
+
 `;
 
 const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, userName, addToCart, incrementItem, decrementItem }) => {
@@ -46,7 +67,12 @@ const Navbar = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, us
                 <div>
                     { userName ? userName : ''}
                     <button onClick={() => setShowModal(true)}>{userName ? "Logout" : "Login"}</button>
-                    <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
+                    <div className="cartIcon">
+                        <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
+                        <div className="number">
+                            {cartItems.length}
+                        </div>
+                    </div>
                 </div>
             </Navigation>
             <Cart showCart={showCart} setShowCart={setShowCart} cartItems={cartItems} setCartItems={setCartItems} addToCart={addToCart} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem}/>

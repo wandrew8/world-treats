@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import CategoryGrid from '../components/CategoryGrid';
 import HeroBanner from '../components/HeroBanner';
+import Info from '../components/Info';
 
 const HomeContainer = styled.main`
     min-height: 100vh;
@@ -19,7 +20,9 @@ const Home = () => {
     return (
         <HomeContainer>
             <HeroBanner />
+            <h1>Shop By Category</h1>
             <CategoryGrid />
+            <Info />
         </HomeContainer>
     )
 }

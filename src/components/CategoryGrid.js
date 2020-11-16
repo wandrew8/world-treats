@@ -26,8 +26,11 @@ const Grid = styled.div`
 const Item = styled.div`
     position: relative;
     border-radius: 10px;
+    transition: 200ms ease-in;
+    height: 300px;
     &:hover {
         cursor: pointer;
+        box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.1);
     }
     &:hover h2 {
         transform: scale(1.2);
@@ -63,8 +66,8 @@ const Item = styled.div`
     }
     .mask {
         width: 100%;
-        height: calc(100% - 7px);
-        background-color: rgba(0,0,0,0.2);
+        height: 300px;
+        background-color: rgba(0,0,0,0.05);
         z-index: 10;
         position: absolute;
         border-radius: 10px;

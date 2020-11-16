@@ -6,6 +6,8 @@ import { TagButton, SmallTagButton } from '../components/Button';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
 import { kebabCase } from '../utilities/utilityFunctions';
+import { devices } from '../utilities/devices';
+
 
 const MainContainer = styled.div`
     width: 90%;
@@ -16,9 +18,13 @@ const MainContainer = styled.div`
 
 export const ProductsContainer = styled.main`
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 1.5rem;
     min-height: 75vh;
+    @media ${devices.tablet} { 
+        grid-template-columns: 300px 1fr;
+
+    }
     .sort {
         display: flex;
         align-items: center;
