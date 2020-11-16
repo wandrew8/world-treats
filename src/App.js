@@ -20,7 +20,7 @@ export default function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ userInfo , setUserInfo ] = useState({});
   const [ showCart, setShowCart ] = useState(false);
-  const [ cartItems, setCartItems ] = useState([]);
+  const [ cartItems, setCartItems ] = useLocalStorage("cart", []);
   const theme = {
     primary: "#0abde3",
   };
@@ -56,7 +56,6 @@ export default function App() {
         identicalItem = false;
       }
     }    
-    console.log(identicalItem)
     if (identicalItem) {
       setShowCart(true);
     } else {
