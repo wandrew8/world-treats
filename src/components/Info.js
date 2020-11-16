@@ -27,7 +27,7 @@ const info = [
 const InfoComponent = styled.div`
     text-align: center;
     padding: 0rem 4rem;
-    margin: 0 auto;
+    margin: 5rem auto;
     max-width: 1000px;
     h1 {
         font-size: 3rem;

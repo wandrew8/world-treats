@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import convertUSD from '../utilities/convertUSD';
 
 const CheckoutComponent = styled.div`
     min-height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
     .cart {
-        max-width: 1000px;
-        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    .num {
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .message {
+        text-align: center;
+    }
+    h2 {
+        font-size: 1.2rem;
     }
     .item {
         display: grid;
-        grid-template-columns: 75px 400px 75px;
+        grid-template-columns: 75px 1fr 75px;
         grid-gap: 1rem;
         align-items: center;
         margin: 1rem 0rem;
@@ -25,6 +37,7 @@ const CheckoutComponent = styled.div`
             align-self: flex-start;
             margin-block-start: 0.83em;
             font-size: 1.2rem;
+            text-align: right;
         }
     }
     .imageContainer{
@@ -56,8 +69,20 @@ const CheckoutComponent = styled.div`
 
 const Checkout = (props) => {
     const { cartItems } = props;
-    console.log(cartItems)
-    console.log("hello")
+    const [ total, setTotal ] = useState(0);
+    const [ shipping, setShipping ] = useState(499);
+    useEffect(() => {
+        let theTotal = 0;
+        cartItems.forEach(item => {
+            theTotal += item.quantity * item.product.price;
+        })
+        setTotal(theTotal);
+        if(theTotal > 5000) {
+            setShipping(0);
+        } else {
+            setShipping(499);
+        }
+    }, [cartItems])
     return (
         <CheckoutComponent>
             <h1>Your Cart</h1>
@@ -85,6 +110,21 @@ const Checkout = (props) => {
                         
                     )
                 }) : <p>You have no items in your cart</p>}
+            </div>
+            <div className="subtotal">
+                <div className="num">
+                    <p>Subtotal:</p>
+                    <h2>{convertUSD(total)}</h2>
+                </div>
+                <div className="num">
+                    <p>Shipping:</p>
+                    <h2>{convertUSD(shipping)}</h2>
+                </div>
+                {total < 5000 ? <div className="message"><p>Spend $50 to qualify for free shipping</p></div> : <div className="message"><p>You qualify for free shipping!</p></div> }
+                <div className="num">
+                    <p>Total:</p>
+                    <h1>{convertUSD(total + shipping)}</h1>
+                </div>
             </div>
         </CheckoutComponent>
     )
