@@ -1,26 +1,27 @@
 {
   "files": {
     "main.css": "/world-treats/static/css/main.ad7f6895.chunk.css",
-    "main.js": "/world-treats/static/js/main.c6806fee.chunk.js",
-    "main.js.map": "/world-treats/static/js/main.c6806fee.chunk.js.map",
+    "main.js": "/world-treats/static/js/main.136051c5.chunk.js",
+    "main.js.map": "/world-treats/static/js/main.136051c5.chunk.js.map",
     "runtime-main.js": "/world-treats/static/js/runtime-main.13e68a35.js",
     "runtime-main.js.map": "/world-treats/static/js/runtime-main.13e68a35.js.map",
-    "static/js/2.bfdcca82.chunk.js": "/world-treats/static/js/2.bfdcca82.chunk.js",
-    "static/js/2.bfdcca82.chunk.js.map": "/world-treats/static/js/2.bfdcca82.chunk.js.map",
+    "static/js/2.32da61cd.chunk.js": "/world-treats/static/js/2.32da61cd.chunk.js",
+    "static/js/2.32da61cd.chunk.js.map": "/world-treats/static/js/2.32da61cd.chunk.js.map",
     "index.html": "/world-treats/index.html",
-    "precache-manifest.e802b48e1338aa3b5bf57ecf43ce8bec.js": "/world-treats/precache-manifest.e802b48e1338aa3b5bf57ecf43ce8bec.js",
+    "precache-manifest.02a836202e3470de66701999954d4e8a.js": "/world-treats/precache-manifest.02a836202e3470de66701999954d4e8a.js",
     "service-worker.js": "/world-treats/service-worker.js",
     "static/css/main.ad7f6895.chunk.css.map": "/world-treats/static/css/main.ad7f6895.chunk.css.map",
-    "static/js/2.bfdcca82.chunk.js.LICENSE.txt": "/world-treats/static/js/2.bfdcca82.chunk.js.LICENSE.txt",
+    "static/js/2.32da61cd.chunk.js.LICENSE.txt": "/world-treats/static/js/2.32da61cd.chunk.js.LICENSE.txt",
     "static/media/candy.jpg": "/world-treats/static/media/candy.40b38abe.jpg",
     "static/media/chips.jpg": "/world-treats/static/media/chips.97650020.jpg",
     "static/media/chocolate.jpg": "/world-treats/static/media/chocolate.86180fd6.jpg",
-    "static/media/cookies.jpg": "/world-treats/static/media/cookies.0e5d12a6.jpg"
+    "static/media/cookies.jpg": "/world-treats/static/media/cookies.0e5d12a6.jpg",
+    "static/media/hero.jpg": "/world-treats/static/media/hero.89178ae1.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.13e68a35.js",
-    "static/js/2.bfdcca82.chunk.js",
+    "static/js/2.32da61cd.chunk.js",
     "static/css/main.ad7f6895.chunk.css",
-    "static/js/main.c6806fee.chunk.js"
+    "static/js/main.136051c5.chunk.js"
   ]
 }
