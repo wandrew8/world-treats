@@ -1,56 +1,72 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import chips from '../images/chips.jpg';
-import chocolate from '../images/chocolate.jpg';
-import cookies from '../images/cookies.jpg';
-import candy from '../images/candy.jpg';
+import { Link } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 import styled from 'styled-components';
+import { kebabCase } from '../utilities/utilityFunctions';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const Item = styled.div`
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    &:hover .subtitle {
+            background-color: rgba(0,0,0,0);
+            color: transparent;
+            text-shadow: 0px 50px rgba(0,0,0,0.2);
+
+
+        }
+    &:hover img {
+        transform: scale(1.2);
+    }
     img {
-        height: 300px;
+        height: 250px;
         width: auto;
         object-fit: cover;
+        transition: 200ms ease-in;
+        
     }
     .subtitle {
+        transition: 300ms ease-in;
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 95%;
+        border-radius: 10px;
         text-align: center;
+        height: 100px;
+        display: flex;
+        align-items: center;
         transform: translate(-50%, -50%);
-        font-size: 3rem;
+        font-size: 1.8rem;
+        background-color: rgba(0,0,0,0.3);
+        padding: 1rem 0.2rem;
         color: white;
         margin: 0;
-        padding: 0rem 1rem;
         text-transform: capitalize;
         text-shadow: 5px 5px rgba(0,0,0,0.2);
         font-family: 'Fredoka One', cursive;
     }
 `;
-const CarouselComponent = () => {
+const CarouselComponent = ({products}) => {
     return (
         <>
             <h1 style={{ textAlign: "center", fontSize: "3rem" }}>New Products!</h1>
-            <Carousel style={{ backgroundColor: "#fff" }} infiniteLoop={true} autoPlay={false} centerMode={true} showStatus={false} showIndicators={false} centerSlidePercentage={100/3} showThumbs={false}>
-                <Item>
-                    <img src={chips} />
-                    <p className="subtitle">Chips & Snacks</p>
-                </Item>
-                <Item>
-                    <img src={chocolate} />
-                    <p className="subtitle">Chocolate</p>
-                </Item>
-                <Item>
-                    <img src={cookies} />
-                    <p className="subtitle">Cakes & Cookies</p>
-                </Item>
-                <Item>
-                    <img src={candy} />
-                    <p className="subtitle">Candy</p>
-                </Item>
-            </Carousel>
+            {products.length > 0 ? <Carousel style={{ backgroundColor: "#fff" }} infiniteLoop={true} autoPlay={false} centerMode={true} showStatus={false} showIndicators={false} centerSlidePercentage={100/3} showThumbs={false}>
+                {products.map(product => {
+                    const { mainImage, name, } = product;
+                    return (
+                        <Link to={`/products/${kebabCase(name)}`}>
+                            <Item>
+                                <img src={mainImage} alt={name}/>
+                                <p className="subtitle">{name}</p>
+                            </Item>
+                        </Link>
+                        )
+                    })
+                }
+            </Carousel> : <Spinner relative /> }
         </>
     )
 }

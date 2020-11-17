@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 
 const SpinnerContainer = styled.div`   
-    position:absolute;
+    position:${props => props.relative ? "relative" : "absolute"};
     top:50%;
     left:50%;
+    text-align: center;
     transform:translate(-50%, -50%); 
+    margin: 8rem 0rem;
     margin-top: 3rem;
     .circle{
     display: inline-block;
@@ -49,9 +51,9 @@ const SpinnerContainer = styled.div`
     }
 `;
 
-const Spinner = () => {
+const Spinner = ({ relative }) => {
     return (
-        <SpinnerContainer>
+        <SpinnerContainer relative>
             <span className="circle circle-1"></span>
             <span className="circle circle-2"></span>
             <span className="circle circle-3"></span>
