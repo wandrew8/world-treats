@@ -46,7 +46,7 @@ const Home = () => {
             setNewProducts(result.data)
             console.log(result.data)
         }
-        // getData();           
+        getData();           
     })
 
     return (

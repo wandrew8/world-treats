@@ -10,6 +10,7 @@ const Item = styled.div`
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
+    justify-content: center;
     &:hover .subtitle {
             background-color: rgba(0,0,0,0);
             color: transparent;
@@ -37,6 +38,7 @@ const Item = styled.div`
         text-align: center;
         height: 100px;
         display: flex;
+        justify-content: center;
         align-items: center;
         transform: translate(-50%, -50%);
         font-size: 1.8rem;
