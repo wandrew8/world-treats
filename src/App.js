@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import {
   HashRouter as Router,
   Switch,
@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import GlobalStyles from './components/GlobalStyles';
 import './App.css';
 
+export const UserContext = createContext({"isLoggedIn": false});
 export default function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ userInfo , setUserInfo ] = useState({});
@@ -64,42 +65,46 @@ export default function App() {
     }
   }
   
-  console.log(cartItems)
   useEffect(() => {
     firebase.auth().onAuthStateChanged(
       user => {
         setIsLoggedIn(!!user);
-        setUserInfo(firebase.auth().currentUser)
-        console.log(isLoggedIn);
-        console.log(userInfo);
+        setUserInfo({...firebase.auth().currentUser, "isLoggedIn": true })
       });
-  }) 
+  }, [isLoggedIn]) 
 
+ const signout = () => {
+    firebase.auth().signOut();
+    setIsLoggedIn(false);
+    setUserInfo({"isLoggedIn": false})
+}
   
 
   return (
     <Router basename="/world-treats">
       <ThemeProvider theme={theme}>
-        <GlobalStyles showCart={showCart}/>
-        <Navbar userName={userInfo?.displayName} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} addToCart={addToCart} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem}/>
-        <Switch>
-          <Route path="/products/:id">
-            <Product addToCart={addToCart}/>
-          </Route>
-          <Route path="/products">
-            <Products />
-          </Route>
-          <Route path="/category/:categoryName">
-            <Category />
-          </Route>
-          <Route path="/checkout">
-            <Checkout cartItems={cartItems}/>
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-        <Footer />
+        <UserContext.Provider value={userInfo}>
+          <GlobalStyles showCart={showCart}/>
+          <Navbar userName={userInfo?.displayName} signout={signout} userImage={userInfo?.photoURL} cartItems={cartItems} setCartItems={setCartItems} showCart={showCart} setShowCart={setShowCart} addToCart={addToCart} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem}/>
+          <Switch>
+            <Route path="/products/:id">
+              <Product addToCart={addToCart}/>
+            </Route>
+            <Route path="/products">
+              <Products />
+            </Route>
+            <Route path="/category/:categoryName">
+              <Category />
+            </Route>
+            <Route path="/checkout">
+              <Checkout cartItems={cartItems}/>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+          <Footer />
+        </UserContext.Provider>
       </ThemeProvider>
     </Router>
   );
@@ -129,4 +134,5 @@ function useLocalStorage(key, initialValue) {
 
   return [storedValue, setValue];
 }
+
 

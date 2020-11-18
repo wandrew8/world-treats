@@ -20,23 +20,7 @@ const HomeContainer = styled.main`
 `;
 
 const Home = () => {
-    const data = [
-        {
-            name: "Spicy Mango Gummies",
-            mainImage: "https://res.cloudinary.com/dcokaa0ia/image/upload/v1602696559/worldtreats/Spicy-Mango-Gummies-2-1536x1536_ozp9ta.jpg"
-
-        },
-        {
-            name: "Korean BBQ Chips",
-            mainImage: "https://res.cloudinary.com/dcokaa0ia/image/upload/v1605640347/worldtreats/Korean-Fried-Chicken-Balls-1536x1536_gtjuk0.jpg"
-        },
-        {
-            name: "Taiwanese Boba Popcorn",
-            mainImage: "https://res.cloudinary.com/dcokaa0ia/image/upload/v1605639997/worldtreats/Bubble-Tea-Popcorn-1536x1536_jwz6lq.jpg"
-        }
-
-    ]
-    const [ newProducts, setNewProducts ] = useState(data);
+    const [ newProducts, setNewProducts ] = useState([]);
     useEffect(() => {
         async function getData() {
             const amount = 5;
@@ -44,10 +28,9 @@ const Home = () => {
             const url = `https://world-treats-api.herokuapp.com/products/newproducts/${amount}`
             const result = await axios(proxy + url);
             setNewProducts(result.data)
-            console.log(result.data)
         }
         getData();           
-    })
+    }, [])
 
     return (
         <HomeContainer>
