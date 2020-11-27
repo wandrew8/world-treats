@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../components/ProductCard';
+import Pagination from '../components/Pagination';
 import { TagButton, SmallTagButton } from '../components/Button';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
@@ -64,6 +65,8 @@ const Products = () => {
     const [ products, setProducts ] = useState([]);
     const [ countries, setCountries ] = useState([]);
     const [ sort, setSort ] = useState("");
+    const [ totalPages, setTotalPages ] = useState(1);
+    const [ currentPage, setCurrentPage ] = useState(1);
     const [ showAllCountries, setShowAllCountries ] = useState(true);
     const [ showAllCategories, setShowAllCategories ] = useState(true);
     const [ filterByCountry, setFilterByCountry ] = useState("");
@@ -77,6 +80,26 @@ const Products = () => {
         .then(res => res.json())
         .then(response => {
           setCountries(response)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const setTheTotalPages = (num) => {
+        const array = [];
+        for(let i = 0; i < num; i++) {
+            array.push(i + 1)
+        }
+        return array;
+    }
+
+    const getTotalPages = () => {
+        const proxy = "https://cors-anywhere.herokuapp.com/";
+        const url = "https://world-treats-api.herokuapp.com/products/pages/getall"
+        fetch(proxy + url)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response)
+          setTotalPages(response)
         })
         .catch(err => console.log(err))
     }
@@ -98,6 +121,7 @@ const Products = () => {
     useEffect(() => {
         getProducts();
         getCountries();
+        getTotalPages();
       }, []);
 
     const filterCountries = (country) => {
@@ -200,9 +224,10 @@ const Products = () => {
                         )
                     })}
                 </div>
+            <Pagination totalPages={totalPages} currentPage={currentPage}/>
             </div>
-
             </ProductsContainer>
+
             </MainContainer>
         </>
     )

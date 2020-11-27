@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import ScrollToTopOnMount from '../components/ScrollToTop';
 import convertUSD from '../utilities/convertUSD';
 
 const CheckoutComponent = styled.div`
@@ -84,6 +85,8 @@ const Checkout = (props) => {
         }
     }, [cartItems])
     return (
+        <>
+        <ScrollToTopOnMount />
         <CheckoutComponent>
             <h1>Your Cart</h1>
             <div className="cart">
@@ -127,6 +130,7 @@ const Checkout = (props) => {
                 </div>
             </div>
         </CheckoutComponent>
+        </>
     )
 }
 

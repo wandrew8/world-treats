@@ -7,6 +7,7 @@ import Breadcrumb from './Breadcrumb';
 import { IconButton, PrimaryButton, InvisibleButton } from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import ScrollToTopOnMount from './ScrollToTop';
 
 const Container = styled.div`
     display: grid;
@@ -152,6 +153,7 @@ const SingleProduct = ({ product, addToCart }) => {
     
     return (
         <>
+        <ScrollToTopOnMount />
         <Banner country={country} />
         <Breadcrumb category={category} name={name}/>
         <Container>

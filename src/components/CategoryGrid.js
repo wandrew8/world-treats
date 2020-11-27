@@ -107,7 +107,7 @@ const CategoryGrid = () => {
             {categories.map(item => {
                 const { name, subtitle, image, slug } = item;
                 return (
-                    <Item>
+                    <Item key={name}>
                         <Link to={`/category/${slug}`}>
                             <div className="mask"></div>
                             <img src={image} alt={name} />

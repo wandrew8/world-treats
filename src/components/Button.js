@@ -73,7 +73,7 @@ const SquareIconButton = styled.button`
     transition: 200ms ease-in;
     cursor: pointer;
     outline: none;
-    border: solid lightgray 2px;
+    border: solid ${props => props.disabled ? "lightgray" : "black" } 2px;
 `;
 
 const ButtonClose = styled.button`
@@ -122,8 +122,9 @@ export function SecondaryButton(props) {
 }
 
 export function IconButtonSquare(props) {
+    const { disabled } = props;
     return (
-        <SquareIconButton onClick={props.onClick ? props.onClick.bind(this) : null}>
+        <SquareIconButton disabled={disabled} onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </SquareIconButton>
     )
