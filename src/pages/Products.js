@@ -66,6 +66,7 @@ const Products = () => {
     const [ countries, setCountries ] = useState([]);
     const [ sort, setSort ] = useState("");
     const [ totalPages, setTotalPages ] = useState(1);
+    const [ pages, setPages ] = useState([]);
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ showAllCountries, setShowAllCountries ] = useState(true);
     const [ showAllCategories, setShowAllCategories ] = useState(true);
@@ -84,14 +85,6 @@ const Products = () => {
         .catch(err => console.log(err))
     }
 
-    const setTheTotalPages = (num) => {
-        const array = [];
-        for(let i = 0; i < num; i++) {
-            array.push(i + 1)
-        }
-        return array;
-    }
-
     const getTotalPages = () => {
         const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = "https://world-treats-api.herokuapp.com/products/pages/getall"
@@ -99,7 +92,19 @@ const Products = () => {
         .then(res => res.json())
         .then(response => {
             console.log(response)
-          setTotalPages(response)
+          setTotalPages(response.totalPages);
+          setPages(response.pages);
+        })
+        .catch(err => console.log(err))
+    }
+
+    const getProductsByPage = (page) => {
+        const proxy = "https://cors-anywhere.herokuapp.com/";
+        const url = `https://world-treats-api.herokuapp.com/products?page=${page}`;
+        fetch(proxy + url)
+        .then(res => res.json())
+        .then(response => {
+            setProducts(response);
         })
         .catch(err => console.log(err))
     }
@@ -224,7 +229,7 @@ const Products = () => {
                         )
                     })}
                 </div>
-            <Pagination totalPages={totalPages} currentPage={currentPage}/>
+            <Pagination getProductsByPage={getProductsByPage} totalPages={totalPages} pages={pages} currentPage={currentPage}/>
             </div>
             </ProductsContainer>
 

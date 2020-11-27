@@ -11,15 +11,27 @@ const PaginationComponent = styled.nav`
     .icon {
         color: lightgray;
     }
+    .pages {
+        display: flex;
+        p {
+            margin: 0rem 1rem;
+        }
+    }
 `;
 
 const Pagination = (props) => {
-    const { totalPages, currentPage } = props;
+    const { totalPages, currentPage, pages, getProductsByPage } = props;
     console.log(currentPage)
     return (
         <PaginationComponent>
             <Link><IconButtonSquare disabled={currentPage > 1}><FontAwesomeIcon className="icon" icon={faArrowLeft}></FontAwesomeIcon></IconButtonSquare></Link>
-            <p>{totalPages}</p>
+                <div className="pages">
+                    {pages.map(page => {
+                        return (
+                            <p key={page} onClick={() => getProductsByPage(page)}>{page}</p>
+                        )
+                    })}
+                </div>
             <Link><IconButtonSquare><FontAwesomeIcon className="icon" icon={faArrowRight}></FontAwesomeIcon></IconButtonSquare></Link>
         </PaginationComponent>
     )
