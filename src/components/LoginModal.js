@@ -49,7 +49,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
                     <div>
                         <CloseButton onClick={() => setShowModal(false)}><FontAwesomeIcon icon={faTimes} className="icon"></FontAwesomeIcon></CloseButton>
                         <h2>Login to your Account</h2>
-                        <FirebaseAuth />
+                        <FirebaseAuth setShowModal={setShowModal}/>
                     </div>
             </Modal>
         })

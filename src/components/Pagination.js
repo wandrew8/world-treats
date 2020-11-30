@@ -13,14 +13,17 @@ const PaginationComponent = styled.nav`
     }
     .pages {
         display: flex;
-        p {
-            margin: 0rem 1rem;
+        button {
+            margin: 0rem 0.2rem;
+        }
+        .selected {
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
         }
     }
 `;
 
 const Pagination = (props) => {
-    const { totalPages, currentPage, pages, getProductsByPage } = props;
+    const { currentPage, pages, getProductsByPage } = props;
     console.log(currentPage)
     return (
         <PaginationComponent>
@@ -28,7 +31,7 @@ const Pagination = (props) => {
                 <div className="pages">
                     {pages.map(page => {
                         return (
-                            <p key={page} onClick={() => getProductsByPage(page)}>{page}</p>
+                            <IconButtonSquare className="selected" key={page} onClick={() => getProductsByPage(page)}>{page}</IconButtonSquare>
                         )
                     })}
                 </div>

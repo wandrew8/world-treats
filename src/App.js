@@ -18,6 +18,7 @@ import './App.css';
 
 export const UserContext = createContext({"isLoggedIn": false});
 export default function App() {
+  const db = firebase.firestore();
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ userInfo , setUserInfo ] = useState({});
   const [ showCart, setShowCart ] = useState(false);
@@ -62,12 +63,26 @@ export default function App() {
     } else {
       setCartItems([...cartItems, item]);
       setShowCart(true);
+      if (isLoggedIn) {
+        const uid = firebase.auth().currentUser.uid;
+        console.log(uid)
+        db.collection('users')
+        .doc(uid)
+        .collection("cart")
+        .add({
+          item
+        })
+        .then(() => {
+          console.log("Success")
+        })
+      }
     }
   }
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged(
       user => {
+        console.log("user", user)
         setIsLoggedIn(!!user);
         setUserInfo({...firebase.auth().currentUser, "isLoggedIn": true })
       });

@@ -91,20 +91,22 @@ const Products = () => {
         fetch(proxy + url)
         .then(res => res.json())
         .then(response => {
-            console.log(response)
           setTotalPages(response.totalPages);
           setPages(response.pages);
+          setNumItems(response.totalItems);
         })
         .catch(err => console.log(err))
     }
 
     const getProductsByPage = (page) => {
+        setIsLoading(true);
         const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = `https://world-treats-api.herokuapp.com/products?page=${page}`;
         fetch(proxy + url)
         .then(res => res.json())
         .then(response => {
             setProducts(response);
+            setIsLoading(false);
         })
         .catch(err => console.log(err))
     }
@@ -118,7 +120,6 @@ const Products = () => {
           console.log(response)
           setProducts(response)
           setIsLoading(false);
-          setNumItems(response.length);
         })
         .catch(err => console.log(err))
     }
@@ -204,7 +205,7 @@ const Products = () => {
                 <div className="product-card-container">
                     { isLoading && <Spinner />}
                     { numItems === 0 && !isLoading ? <p className="message">No items found</p> : null}
-                    { products.filter(product => {
+                    { !isLoading ? products.filter(product => {
                         if (filterByCategory && filterByCountry) {
                             return product.category === filterByCategory && product.country === filterByCountry;
                         } else if (filterByCategory) {
@@ -227,9 +228,9 @@ const Products = () => {
                         return (
                             <ProductCard product={item} url={kebabCase(item.name)} key={item.name}/>
                         )
-                    })}
+                    }) : null }
                 </div>
-            <Pagination getProductsByPage={getProductsByPage} totalPages={totalPages} pages={pages} currentPage={currentPage}/>
+            {/* <Pagination getProductsByPage={getProductsByPage} totalPages={totalPages} pages={pages} currentPage={currentPage}/> */}
             </div>
             </ProductsContainer>
 
