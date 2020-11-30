@@ -87,7 +87,9 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
         let total = 0;
         if(cartItems) {
             cartItems.forEach(item => {
-                total += parseInt(item.product.price) * parseInt(item.quantity);
+                console.log(item.data())
+                const { product, quantity } = item.data().item;
+                total += parseInt(product.price) * parseInt(quantity);
             })
             return total;
         }
@@ -105,8 +107,11 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                 <hr/>
                 <div className="items-container cart">
                     {cartItems && cartItems.length > 0 ? cartItems.map((item, index) => {
+                        const { product, quantity } = item.data().item;
+                        const id = item.id;
+                        console.log(id)
                         return (
-                            <CartItem item={item.product} quantity={item.quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index} key={item.product._id}/>
+                            <CartItem id={id} item={product} quantity={quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index} key={product._id}/>
                         )
                     }) : <div className="message">You have no items in your cart</div>}
                 </div>

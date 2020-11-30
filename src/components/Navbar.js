@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Cart from './Cart';
 import LoginModal from './LoginModal';
 import { UserContext } from '../App';
+import { InvisibleButton } from '../components/Button';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faCookieBite } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +15,7 @@ const Navigation = styled.nav`
     margin: 0 auto;
     padding: 1rem 4rem;
     background-color: ${props => props.theme.primary};
+    color: #fff;
     a {
         color: white;
         text-decoration: none;
@@ -56,8 +58,6 @@ const Navigation = styled.nav`
 const Navbar = ({ showCart, signout, setShowCart, cartItems, setCartItems, removeItem, userName, addToCart, incrementItem, decrementItem }) => {
     const [ showModal, setShowModal ] = useState(false);
     const user = useContext(UserContext);
-
-    console.log(user)
     return (
         <React.Fragment>
             <LoginModal setShowModal={setShowModal} showModal={showModal}/>
@@ -66,8 +66,8 @@ const Navbar = ({ showCart, signout, setShowCart, cartItems, setCartItems, remov
                     <Link className="badge" to="/"><FontAwesomeIcon size="2x" className="cookie" icon={faCookieBite}></FontAwesomeIcon>World Treats</Link>
                 </div>
                 <div>
-                    { userName ? userName : ''}
-                    <button onClick={() => userName ? signout() : setShowModal(true)}>{userName ? "Logout" : "Login"}</button>
+                    { userName ? `You are logged in, ${userName}` : ''}
+                    <InvisibleButton white={true} onClick={() => userName ? signout() : setShowModal(true)}>{userName ? "Logout" : "Login"}</InvisibleButton>
                     <div className="cartIcon">
                         <FontAwesomeIcon className="icon" onClick={() => setShowCart(true)} icon={faShoppingCart} />
                         <div className="number">

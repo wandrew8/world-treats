@@ -38,7 +38,7 @@ const Item = styled.div`
     
 `;
 
-const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem, index}) => {
+const CartItem = ({item, id, removeItem, quantity, incrementItem, decrementItem, index}) => {
     const { price, name, mainImage, packageDescription, _id } = item
     const addItem = () => {
 
@@ -50,7 +50,7 @@ const CartItem = ({item, removeItem, quantity, incrementItem, decrementItem, ind
         <Container>
             <Item>
                 <div>
-                    <CloseButton onClick={() => removeItem(name)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
+                    <CloseButton onClick={() => removeItem(id)}><FontAwesomeIcon icon={faTimesCircle} /></CloseButton>
                     <img src={mainImage} alt={name} />
                 </div>
                 <div className="item-description">

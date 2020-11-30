@@ -22,7 +22,9 @@ export default function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ userInfo , setUserInfo ] = useState({});
   const [ showCart, setShowCart ] = useState(false);
-  const [ cartItems, setCartItems ] = useLocalStorage("cart", []);
+  const [ cartItems, setCartItems ] = useState([]);
+
+  // const [ cartItems, setCartItems ] = useLocalStorage("cart", []);
   const theme = {
     primary: "#0abde3",
   };
@@ -42,12 +44,35 @@ export default function App() {
     setCartItems(newArray);
   }
 
-  const removeItem = (el) => {
-    const filtered = cartItems.filter(item => {
-      return item.product.name !== el;
-    })
-    setCartItems(filtered);
+  const removeItem = (id) => {
+    // const filtered = cartItems.filter(item => {
+    //   return item.product.name !== id;
+    // })
+    // setCartItems(filtered);
+    const uid = firebase.auth().currentUser.uid;
+    db.collection("users")
+    .doc(uid)
+    .collection("cart")
+    .doc(id)
+    .delete()
+    .then(() => getUserCart(uid))
+    .catch((error) => console.error("Error deleting document", error));
   }
+
+  const getUserCart = uid => {
+    db.collection('users')
+      .doc(uid)
+      .collection('cart')
+      .get()
+      .then(snapshot => {
+        const collection = []
+        snapshot.docs.map(doc => collection.push(doc))
+        console.log(collection)
+        setCartItems(collection)
+      })
+      .catch(err => console.log(err))
+  }
+
 
   const addToCart = item => {
     let identicalItem;
@@ -82,16 +107,21 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(
       user => {
-        console.log("user", user)
         setIsLoggedIn(!!user);
         setUserInfo({...firebase.auth().currentUser, "isLoggedIn": true })
+          if(isLoggedIn) {
+            const uid = firebase.auth().currentUser.uid;
+            getUserCart(uid);
+          }
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]) 
 
  const signout = () => {
     firebase.auth().signOut();
     setIsLoggedIn(false);
     setUserInfo({"isLoggedIn": false})
+    setCartItems([]);
 }
   
 

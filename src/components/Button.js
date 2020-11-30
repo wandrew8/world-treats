@@ -103,6 +103,9 @@ const ButtonInvisible = styled.button`
     outline: none;
     cursor: pointer;
     border: none;
+    color: ${props => props.white ? "#fff": "black"};
+    font-family: 'Fredoka One', cursive;
+
 `;
 
 export function PrimaryButton(props) {
@@ -148,7 +151,7 @@ export function CloseButton(props) {
 
 export function InvisibleButton(props) {
     return (
-        <ButtonInvisible onClick={props.onClick ? props.onClick.bind(this) : null}>
+        <ButtonInvisible white={props.white} onClick={props.onClick ? props.onClick.bind(this) : null}>
             {props.children}
         </ButtonInvisible>
     )
