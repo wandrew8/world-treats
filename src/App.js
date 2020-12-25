@@ -76,8 +76,9 @@ export default function App() {
 
   const addToCart = item => {
     let identicalItem;
+    console.log(cartItems[0].data().item.product.name)
     for (let i = 0; i < cartItems.length; i++){
-      if(cartItems[i].product.name === item.product.name) {
+      if(cartItems[i].data().item.product.name === item.product.name) {
         identicalItem = true;
       } else {
         identicalItem = false;
@@ -86,7 +87,6 @@ export default function App() {
     if (identicalItem) {
       setShowCart(true);
     } else {
-      setCartItems([...cartItems, item]);
       setShowCart(true);
       if (isLoggedIn) {
         const uid = firebase.auth().currentUser.uid;

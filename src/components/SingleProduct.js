@@ -8,12 +8,13 @@ import { IconButton, PrimaryButton, InvisibleButton } from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import ScrollToTopOnMount from './ScrollToTop';
+import { devices } from '../utilities/devices';
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     grid-gap: 2rem;
-    margin: 3rem 0rem;
+    margin: 1rem 0rem;
     h1 {
         font-size: 2.5rem;
     }
@@ -25,10 +26,16 @@ const Container = styled.div`
         font-size: 1.1rem;
     }
     .mainImage {
-        width: 400px;
-        height: 400px;
+        /* width: 400px;
+        height: 400px; */
+        width: 100%;
+        max-width: 500px;
         object-fit: cover;
         margin: 0 auto;
+    }
+    .image {
+        text-align: center;
+        order: 2;
     }
     .imageGallery {
         display: flex;
@@ -38,7 +45,6 @@ const Container = styled.div`
             position: relative;
             cursor: pointer;
             box-sizing: content-box;
-
             width: 125px;
             height: 125px;
             margin-right: 10px;
@@ -102,6 +108,19 @@ const Container = styled.div`
             margin: 3px 2px;
         }
     }
+    @media ${devices.tablet} { 
+        grid-template-columns: 400px 1fr;
+        .image {
+            order: 0;
+        }
+
+    }
+    @media ${devices.laptop} { 
+        grid-template-columns: repeat(2, 1fr);
+        .image {
+            order: 0;
+        }
+    }
 `;
 
 const SingleProduct = ({ product, addToCart }) => {
@@ -154,10 +173,10 @@ const SingleProduct = ({ product, addToCart }) => {
     return (
         <>
         <ScrollToTopOnMount />
-        <Banner country={country} />
         <Breadcrumb category={category} name={name}/>
+        <Banner country={country} />
         <Container>
-            <div>
+            <div className="image">
                 <img className="mainImage" src={displayImage} alt={name} />
                 <div className="imageGallery">
                     <img src={defaultImage} onClick={() => setDisplayImage(defaultImage)} className={displayImage === defaultImage ? "currentImage" : ""} alt={`${name} thumbnail`} />

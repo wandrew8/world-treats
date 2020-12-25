@@ -106,9 +106,10 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                 </div>
                 <hr/>
                 <div className="items-container cart">
-                    {cartItems && cartItems.length > 0 ? cartItems.map((item, index) => {
-                        const { product, quantity } = item.data().item;
-                        const id = item.id;
+                    {cartItems && cartItems.length > 0 ? cartItems.map((el, index) => {
+                        const { product, quantity } = el.data().item;
+                        console.log(el.data().item)
+                        const id = el.id;
                         console.log(id)
                         return (
                             <CartItem id={id} item={product} quantity={quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index} key={product._id}/>
