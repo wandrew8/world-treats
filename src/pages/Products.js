@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Spinner from '../components/Spinner';
 import ProductCard from '../components/ProductCard';
-import Pagination from '../components/Pagination';
+import Loader from '../components/Loader';
 import { TagButton, SmallTagButton } from '../components/Button';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
@@ -40,7 +39,7 @@ export const ProductsContainer = styled.main`
     }
     .product-card-container {
         display: grid;
-        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+        grid-template-columns: repeat( auto-fit, 250px );
         justify-content: space-evenly;
         align-items: center;
         grid-gap: 1rem;
@@ -159,6 +158,16 @@ const Products = () => {
     const handleChange = (event) => {
         setSort(event.target.value);
       }
+    const placeholders = () => {
+        let loaders = [];
+        for(let i = 0; i <= 6; i++) {
+            if( i <= 6) {
+                loaders.push(Loader);
+            }
+        }
+        return loaders;
+    }
+    console.log("placeholders", placeholders())
     return (
         <>
             <Breadcrumb />
@@ -203,7 +212,9 @@ const Products = () => {
                     </form>
                 </div>
                 <div className="product-card-container">
-                    { isLoading && <Spinner />}
+                    { !isLoading ? null : placeholders().map(loader => {
+                        return loader();
+                    })}
                     { numItems === 0 && !isLoading ? <p className="message">No items found</p> : null}
                     { !isLoading ? products.filter(product => {
                         if (filterByCategory && filterByCountry) {
@@ -233,7 +244,7 @@ const Products = () => {
             {/* <Pagination getProductsByPage={getProductsByPage} totalPages={totalPages} pages={pages} currentPage={currentPage}/> */}
             </div>
             </ProductsContainer>
-
+            <Loader />
             </MainContainer>
         </>
     )

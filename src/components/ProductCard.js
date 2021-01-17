@@ -4,8 +4,8 @@ import convertUSD from '../utilities/convertUSD';
 import { Link } from 'react-router-dom'
 
 const Card = styled.div`
-    width: 300px;
-    margin: 0px 20px 20px 0px;
+    width: 250px;
+    margin: 0px;
     h2, h3 {
        color: ${props => props.theme.primary};
     }
