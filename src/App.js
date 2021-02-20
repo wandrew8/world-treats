@@ -76,7 +76,6 @@ export default function App() {
 
   const addToCart = item => {
     let identicalItem;
-    console.log(cartItems[0].data().item.product.name)
     for (let i = 0; i < cartItems.length; i++){
       if(cartItems[i].data().item.product.name === item.product.name) {
         identicalItem = true;

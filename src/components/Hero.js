@@ -5,6 +5,12 @@ import chocolate from '../images/chocolate.jpg';
 import chips from '../images/chips.jpg';
 import cookies from '../images/cookies.jpg';
 import hero from '../images/hero.jpg';
+import thumb from '../images/thumbnail.gif';
+import candyThumb from '../images/candyThumbnail.gif';
+import chipsThumb from '../images/chipsThumbnail.gif';
+import chocolateThumb from '../images/chocolateThumbnail.jpg';
+import cookiesThumb from '../images/cookiesThumbnail.jpg';
+import Image from '../components/ProgressiveImage'
 
 const HeroContainer = styled.header`
     width: 100%;
@@ -15,7 +21,7 @@ const HeroContainer = styled.header`
         width: 100%;
         object-fit: cover;
     }
-    div {
+    .title {
         position: absolute;
         height: 100%;
         width: 100%;
@@ -45,10 +51,24 @@ const Hero = ({ category }) => {
             return hero;
         }
     }
+
+    const getThumbnail = () => {
+        if(category === "Chips & Snacks") {
+            return chipsThumb;
+        } else if (category === "Candy") {
+            return candyThumb;
+        } else if(category === "Cakes & Cookies") {
+            return cookiesThumb;
+        } else if(category === "Chocolate") {
+            return chocolateThumb;
+        } else {
+            return hero;
+        }
+    }
     return (
         <HeroContainer>
-            <img src={getCategory()} alt="" />
-            <div>
+            <Image src={getCategory()} thumb={getThumbnail()} alt="" />
+            <div className="title">
                 <h1>{category}</h1>
             </div>
         </HeroContainer>

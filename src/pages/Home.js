@@ -24,9 +24,8 @@ const Home = () => {
     useEffect(() => {
         async function getData() {
             const amount = 5;
-            const proxy = "https://cors-anywhere.herokuapp.com/";
             const url = `https://world-treats-api.herokuapp.com/products/newproducts/${amount}`
-            const result = await axios(proxy + url);
+            const result = await axios(url);
             setNewProducts(result.data)
         }
         getData();           

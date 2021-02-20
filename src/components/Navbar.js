@@ -5,7 +5,7 @@ import { UserContext } from '../App';
 import { InvisibleButton } from '../components/Button';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faCookieBite } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faGlobeAmericas } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import { devices } from '../utilities/devices';
 
@@ -21,6 +21,10 @@ const Navigation = styled.nav`
     @media ${devices.mobileL} { 
         padding: 1rem 4rem;
 
+    }
+    .mainLogo {
+        font-size: 2rem;
+        margin-right: 0.35rem;
     }
     a {
         color: white;
@@ -74,7 +78,7 @@ const Navbar = ({ showCart, signout, setShowCart, cartItems, setCartItems, remov
             <LoginModal setShowModal={setShowModal} showModal={showModal}/>
             <Navigation>
                 <div>
-                    <Link className="badge" to="/">World Treats</Link>
+                    <Link className="badge" to="/"><FontAwesomeIcon className="mainLogo" icon={faGlobeAmericas} /> World Treats</Link>
                 </div>
                 <div>
                     <InvisibleButton white={true} onClick={() => userName ? signout() : setShowModal(true)}>{userName ? "Logout" : "Login"}</InvisibleButton>

@@ -99,9 +99,8 @@ const Products = () => {
 
     const getProductsByPage = (page) => {
         setIsLoading(true);
-        const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = `https://world-treats-api.herokuapp.com/products?page=${page}`;
-        fetch(proxy + url)
+        fetch(url)
         .then(res => res.json())
         .then(response => {
             setProducts(response);
@@ -111,13 +110,12 @@ const Products = () => {
     }
 
     const getProducts = () => {
-        const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = "https://world-treats-api.herokuapp.com/products"
-        fetch(proxy + url)
+        fetch(url)
         .then(res => res.json())
         .then(response => {
-          console.log(response)
-          setProducts(response)
+          setProducts(response);
+          setNumItems(response.length);
           setIsLoading(false);
         })
         .catch(err => console.log(err))
@@ -160,14 +158,13 @@ const Products = () => {
       }
     const placeholders = () => {
         let loaders = [];
-        for(let i = 0; i <= 6; i++) {
+        for(let i = 1; i <= 6; i++) {
             if( i <= 6) {
                 loaders.push(Loader);
             }
         }
         return loaders;
     }
-    console.log("placeholders", placeholders())
     return (
         <>
             <Breadcrumb />
@@ -244,7 +241,6 @@ const Products = () => {
             {/* <Pagination getProductsByPage={getProductsByPage} totalPages={totalPages} pages={pages} currentPage={currentPage}/> */}
             </div>
             </ProductsContainer>
-            <Loader />
             </MainContainer>
         </>
     )

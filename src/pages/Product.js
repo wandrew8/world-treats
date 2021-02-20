@@ -17,9 +17,8 @@ const Product = ({ addToCart }) => {
     const [ product, setProduct ] = useState({});
     let { id } = useParams();
     useEffect(() => {
-        const proxy = "https://cors-anywhere.herokuapp.com/";
         const url = `https://world-treats-api.herokuapp.com/products/${id}`
-        fetch(proxy + url)
+        fetch(url)
         .then(res => res.json())
         .then(response => {
           console.log(response)

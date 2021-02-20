@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Spinner from '../components/Spinner';
+import Loader from '../components/Loader';
 import Breadcrumb from '../components/Breadcrumb';
 import styled from 'styled-components';
 import Hero from '../components/Hero';
@@ -38,9 +38,8 @@ const Category = () => {
     useEffect(() => {
         const getCountries = () => {
             console.log(categoryName)
-            const proxy = "https://cors-anywhere.herokuapp.com/";
             const url = `https://world-treats-api.herokuapp.com/products/countries/${categoryName}`
-            fetch(proxy + url)
+            fetch(url)
             .then(res => res.json())
             .then(response => {
                 console.log("countries", response)
@@ -49,9 +48,8 @@ const Category = () => {
             .catch(err => console.log(err))
         }
         const getProducts = () => {
-            const proxy = "https://cors-anywhere.herokuapp.com/";
             const url = `https://world-treats-api.herokuapp.com/products/category/${categoryName}`;
-            fetch(proxy + url)
+            fetch(url)
             .then(res => res.json())
             .then(response => {
               console.log("products", response)
@@ -81,7 +79,15 @@ const Category = () => {
       const handleChange = (event) => {
         setSort(event.target.value);
       }
-
+      const placeholders = () => {
+        let loaders = [];
+        for(let i = 1; i <= 6; i++) {
+            if( i <= 6) {
+                loaders.push(Loader);
+            }
+        }
+        return loaders;
+    }
     return (
         <>
         <ScrollToTopOnMount />
@@ -117,7 +123,9 @@ const Category = () => {
                         </form>
                     </div>
                     <div className="product-card-container">
-                        { isLoading && <Spinner />}
+                        { !isLoading ? null : placeholders().map(loader => {
+                            return loader();
+                        })}
                         { numItems === 0 && !isLoading ? <p className="message">No items found</p> : null}
                         { !showAllCountries ? products.filter(product => {
                             return product.country === filterByCountry

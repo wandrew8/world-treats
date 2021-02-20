@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { SecondaryButton } from '../components/Button';
 import hero from '../images/hero.jpg';
+import heroThumbnail from '../images/heroThumbnail.jpg';
+import Image from '../components/ProgressiveImage';
 
 const HeroContainer = styled.header`
     width: 100%;
@@ -45,7 +47,7 @@ const HeroContainer = styled.header`
 const HeroBanner = () => {
     return (
         <HeroContainer>
-            <img src={hero} alt="" />
+            <Image src={hero} thumb={heroThumbnail} alt="" />
             <div className="container1">
                 <h1>World Treats</h1>
                 <h2>Shop in our World Treats store for delicious snacks from around the world</h2>
