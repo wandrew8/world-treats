@@ -6,6 +6,11 @@ import candy from '../images/candy.jpg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { devices } from '../utilities/devices';
+import candyThumb from '../images/candyThumbnail.gif';
+import chipsThumb from '../images/chipsThumbnail.gif';
+import chocolateThumb from '../images/chocolateThumbnail.jpg';
+import cookiesThumb from '../images/cookiesThumbnail.jpg';
+import Image from '../components/ProgressiveImage';
 
 const Grid = styled.div`
     display: grid;
@@ -81,36 +86,40 @@ const CategoryGrid = () => {
             name: "Chips & Snacks",
             subtitle: "Yummy, crispy and satisfying snacks from around the world",
             image: chips,
-            slug: "chips"
+            slug: "chips",
+            thumbnail: chipsThumb
         },
         {
             name: "Chocolate",
             subtitle: "Yummy, crispy and satisfying snacks from around the world",
             image: chocolate,
-            slug: "chocolate"
+            slug: "chocolate",
+            thumbnail: chocolateThumb
         },
         {
             name: "Cakes & Cookies",
             subtitle: "Yummy, crispy and satisfying snacks from around the world",
             image: cookies,
-            slug: "cake"
+            slug: "cake",
+            thumbnail: cookiesThumb
         },
         {
             name: "Candy",
             subtitle: "Yummy, crispy and satisfying snacks from around the world",
             image: candy,
-            slug: "candy"
+            slug: "candy",
+            thumbnail: candyThumb
         },
     ]
     return (
         <Grid>
             {categories.map(item => {
-                const { name, subtitle, image, slug } = item;
+                const { name, subtitle, image, slug, thumbnail } = item;
                 return (
                     <Item key={name}>
                         <Link to={`/category/${slug}`}>
                             <div className="mask"></div>
-                            <img src={image} alt={name} />
+                            <Image src={image} thumb={thumbnail} alt={name} />
                         <div className="content">
                             <h2>{name}</h2>
                             {/* <p>{subtitle}</p> */}
