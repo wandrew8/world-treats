@@ -87,7 +87,6 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
         let total = 0;
         if(cartItems) {
             cartItems.forEach(item => {
-                console.log(item.data())
                 const { product, quantity } = item.data().item;
                 total += parseInt(product.price) * parseInt(quantity);
             })
@@ -110,7 +109,6 @@ const Cart = ({ showCart, setShowCart, cartItems, setCartItems, removeItem, incr
                         const { product, quantity } = el.data().item;
                         console.log(el.data().item)
                         const id = el.id;
-                        console.log(id)
                         return (
                             <CartItem id={id} item={product} quantity={quantity} removeItem={removeItem} incrementItem={incrementItem} decrementItem={decrementItem} index={index} key={product._id}/>
                         )

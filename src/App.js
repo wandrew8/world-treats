@@ -30,8 +30,8 @@ export default function App() {
   };
   
   const incrementItem = (index) => {
-    const newArray = [...cartItems];
-    newArray[index].quantity++;
+    let newArray = [...cartItems];
+    newArray[index].data().item.quantity++;
     setCartItems(newArray);
      
   }
@@ -97,8 +97,9 @@ export default function App() {
           item
         })
         .then(() => {
-          console.log("Success")
-        })
+            getUserCart(uid)
+          }
+        )
       }
     }
   }
